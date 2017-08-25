@@ -1,9 +1,20 @@
 var express = require('express');
 var router  = express.Router();
 
-router.get("/dashboard", require("./dashboard/index"));
+router.use("/dashboard", require("./dashboard/index"));
+router.use("/login", require("./login/index"));
+
 router.get("/", (req, res, next) => {
-    res.render("index");
+    if (checkSession()) {
+        res.redirect("/dashboard");   
+    } else {
+        res.redirect("/login");
+    }
+    // res.render("index");
 });
 
 module.exports = router;
+
+checkSession = () => {
+    return false;
+}

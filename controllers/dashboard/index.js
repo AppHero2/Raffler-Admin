@@ -5,4 +5,8 @@ router.get("/", (req, res, next) => {
     res.render("dashboard/index");
 });
 
+router.get("/home", (req, res, next) => {
+    res.render("dashboard/index");
+});
+
 module.exports = router;

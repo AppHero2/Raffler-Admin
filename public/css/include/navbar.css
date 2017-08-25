@@ -1,0 +1,10 @@
+.site-navbar-black {
+  background-color: #333333;
+}
+
+.logo-image {
+  object-fit: contain;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}

@@ -10,7 +10,7 @@ var sassMiddleWare= require('node-sass-middleware');
 var app           = express();
 var server        = require('http').Server(app);
 
-function WeLink(config) {
+function Raffler(config) {
     this.init = () => {
         app.set('views', path.join(__dirname, 'views'));
         app.set('view engine', 'ejs');
@@ -62,14 +62,14 @@ function WeLink(config) {
     };
 };
 
-WeLink.startInstance = () => {
+Raffler.startInstance = () => {
     var Configuration = require('./config.js');
     var config = Configuration.load();
-    var welink = new WeLink(config);
-    welink.start();
-    return welink;
+    var raffler = new Raffler(config);
+    raffler.start();
+    return raffler;
 }
 
-WeLink.startInstance();
+Raffler.startInstance();
 
 module.exports = {app: app, server: server};
