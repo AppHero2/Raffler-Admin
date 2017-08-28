@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description" content="raffler admin template">
+  <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
-  <title>Login | Raffler Admin Template</title>
+  <title>Register Raffler Administrator</title>
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="/images/favicon.png">
-
+  
   <% include ../include/styles.ejs %>
-  <link rel='stylesheet' href='/css/include/login.css'>
-
+  <link rel="stylesheet" href="/css/include/signup.css">
+  
   <!-- Scripts -->
   <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
   <script src="/assets/global/vendor/breakpoints/breakpoints.js"></script>
@@ -20,7 +20,7 @@
   Breakpoints();
   </script>
 </head>
-<body class="page-login-v2 layout-full page-dark">
+<body class="page-register-v2 layout-full page-dark">
   <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -32,17 +32,21 @@
           <img class="brand-img" src="/images/img_logo_200.png" alt="...">
           <h2 class="brand-text font-size-40"></h2>
         </div>
-        <p class="font-size-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p class="font-size-20">A raffle often involves several different possible prizes that can be won, 
+            and a ticket will be drawn from the group at random for each of the prizes. </p>
       </div>
-      <div class="page-login-main">
+      <div class="page-register-main">
         <div class="brand visible-xs">
           <img class="brand-img" src="/images/img_logo_200.png" alt="...">
           <h3 class="brand-text font-size-40"></h3>
         </div>
-        <h3 class="font-size-24">Sign In</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        <form method="post" action="login-v2.html" autocomplete="off">
+        <h3 class="font-size-24">Sign Up</h3>
+        <p>Please sign up as administrator of Raffler.</p>
+        <form method="post" role="form" autocomplete="off">
+          <div class="form-group form-material floating">
+            <input type="text" class="form-control empty" id="inputName" name="name">
+            <label class="floating-label" for="inputName">Name</label>
+          </div>
           <div class="form-group form-material floating">
             <input type="email" class="form-control empty" id="inputEmail" name="email">
             <label class="floating-label" for="inputEmail">Email</label>
@@ -51,16 +55,20 @@
             <input type="password" class="form-control empty" id="inputPassword" name="password">
             <label class="floating-label" for="inputPassword">Password</label>
           </div>
+          <div class="form-group form-material floating">
+            <input type="password" class="form-control empty" id="inputPasswordCheck" name="passwordCheck">
+            <label class="floating-label" for="inputPasswordCheck">Retype Password</label>
+          </div>
           <div class="form-group clearfix">
             <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
-              <input type="checkbox" id="remember" name="checkbox">
-              <label for="inputCheckbox">Remember me</label>
+              <input type="checkbox" id="inputCheckbox" name="term">
+              <label for="inputCheckbox"></label>
             </div>
-            <a class="pull-right" href="forgot-password.html">Forgot password?</a>
+            <p class="margin-left-35">By clicking Sign Up, you agree to our <a href="#">Terms</a>.</p>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
         </form>
-        <p>No account? <a href="register-v2.html">Sign Up</a></p>
+        <p>Have account already? Please go to <a href="/signin">Sign In</a></p>
         <footer class="page-copyright">
           <p>WEBSITE BY Raffler LLC</p>
           <p>© 2017. All RIGHT RESERVED.</p>
@@ -80,7 +88,6 @@
     </div>
   </div>
   <!-- End Page -->
-  
   <% include ../include/scripts.ejs %>
 
   <script>

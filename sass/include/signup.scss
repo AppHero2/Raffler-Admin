@@ -1,28 +1,28 @@
-.page-login-v2 {
+.page-register-v2 {
   height: 100%;
 }
-.page-login-v2:before {
+.page-register-v2:before {
   background-image: url("../../images/login.jpg");
 }
-.page-login-v2.page-dark.layout-full:after {
-  background-color: rgba(33, 33, 33, .6);
+.page-register-v2.page-dark.layout-full:after {
+  background-color: rgba(33, 33, 33, .1);
 }
-.page-login-v2 .page-brand-info {
+.page-register-v2 .page-brand-info {
   margin: 80px 100px 0 90px !important;
 }
-.page-login-v2 .page-brand-info .brand-img {
+.page-register-v2 .page-brand-info .brand-img {
   vertical-align: middle;
 }
-.page-login-v2 .page-brand-info .brand-text {
+.page-register-v2 .page-brand-info .brand-text {
   display: inline-block;
   margin: 11px 0 11px 20px;
   vertical-align: middle;
 }
-.page-login-v2 .page-brand-info p {
+.page-register-v2 .page-brand-info p {
   max-width: 650px;
   opacity: .6;
 }
-.page-login-v2 .page-login-main {
+.page-register-v2 .page-register-main {
   position: absolute;
   top: 0;
   right: 0;
@@ -32,29 +32,26 @@
   color: #757575;
   background: #fff;
 }
-.page-login-v2 .page-login-main .brand {
+.page-register-v2 .page-register-main .brand {
   margin-bottom: 60px;
 }
-.page-login-v2 .page-login-main .brand-img {
+.page-register-v2 .page-register-main .brand-img {
   vertical-align: middle;
 }
-.page-login-v2 .page-login-main .brand-text {
+.page-register-v2 .page-register-main .brand-text {
   display: inline-block;
   margin: 11px 0 11px 20px;
   color: #3f51b5;
   vertical-align: middle;
 }
-.page-login-v2 form {
+.page-register-v2 form {
   width: 350px;
   margin: 45px 0 20px;
 }
-.page-login-v2 form > button {
+.page-register-v2 form > button {
   margin-top: 38px;
 }
-.page-login-v2 form a {
-  margin-left: 20px;
-}
-.page-login-v2 footer {
+.page-register-v2 footer {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -66,47 +63,47 @@
        -o-transform: translate(-50%, 0px);
           transform: translate(-50%, 0px);
 }
-.page-login-v2 .social .icon,
-.page-login-v2 .social .icon:hover,
-.page-login-v2 .social .icon:active {
+.page-register-v2 .social .icon,
+.page-register-v2 .social .icon:hover,
+.page-register-v2 .social .icon:active {
   color: #fff;
 }
 @media (min-width: 992px) {
-  .page-login-v2 .page-content {
+  .page-register-v2 .page-content {
     padding-right: 500px;
   }
 }
 @media (max-width: 768px) {
-  .page-login-v2 .page-login-main {
+  .page-register-v2 .page-register-main {
     padding-top: 60px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  .page-login-v2 .page-login-main {
+  .page-register-v2 .page-register-main {
     padding-top: 80px;
   }
-  .page-login-v2 .page-brand-info {
+  .page-register-v2 .page-brand-info {
     margin: 160px 0 0 35px;
   }
-  .page-login-v2 .page-brand-info > p {
+  .page-register-v2 .page-brand-info > p {
     color: transparent;
     opacity: 0;
   }
 }
 @media (max-width: 767px) {
-  .page-login-v2 .page-login-main {
+  .page-register-v2 .page-register-main {
     width: 100%;
     padding-top: 60px;
   }
-  .page-login-v2 form {
+  .page-register-v2 form {
     width: auto;
   }
 }
 @media (max-width: 480px) {
-  .page-login-v2 .page-login-main {
+  .page-register-v2 .page-register-main {
     padding: 50px 30px 180px;
   }
-  .page-login-v2 form {
+  .page-register-v2 form {
     width: auto;
   }
 }

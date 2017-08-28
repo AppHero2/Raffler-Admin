@@ -9,6 +9,15 @@ var bodyParser    = require('body-parser');
 var sassMiddleWare= require('node-sass-middleware');
 var app           = express();
 var server        = require('http').Server(app);
+var firebase      = require('firebase');
+
+var config = {
+  apiKey: "AIzaSyD-8--1ZFgnfx97q9lMq0vPAE52tz_hYFY",
+  authDomain: "raffler-fbf05.firebaseapp.com",
+  databaseURL: "https://raffler-fbf05.firebaseio.com",
+  storageBucket: "<BUCKET>.appspot.com",
+};
+firebase.initializeApp(config);
 
 function Raffler(config) {
     this.init = () => {
