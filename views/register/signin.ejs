@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta name="description" content="raffler admin template">
   <meta name="author" content="">
-  <title>Login Raffler Admin</title>
+  <title>Register Administrator</title>
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="/images/favicon.png">
 
   <% include ../include/styles.ejs %>
-  <link rel='stylesheet' href='/css/include/signin.css'>
+  <link rel="stylesheet" href="./assets/global/vendor/formvalidation/formValidation.css">
+  <link rel='stylesheet' href='/css/register/signin.css'>
 
   <!-- Scripts -->
   <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
@@ -42,7 +43,7 @@
         </div>
         <h3 class="font-size-24">Sign In</h3>
         <p>Please sign in to your admin account of Raffler.</p>
-        <form method="post" action="login-v2.html" autocomplete="off">
+        <form method="post" action="/sign" autocomplete="off" id="frm_signin">
           <div class="form-group form-material floating">
             <input type="email" class="form-control empty" id="inputEmail" name="email">
             <label class="floating-label" for="inputEmail">Email</label>
@@ -58,7 +59,7 @@
             </div>
             <a class="pull-right" href="forgot-password.html">Forgot password?</a>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-block" id="btn_signin">Sign in</button>
         </form>
         <p>No account? <a href="/signup">Sign Up</a></p>
         <footer class="page-copyright">
@@ -82,7 +83,9 @@
   <!-- End Page -->
   
   <% include ../include/scripts.ejs %>
-
+  <script src="/assets/global/vendor/formvalidation/formValidation.min.js"></script>
+  <script src="/assets/global/vendor/formvalidation/framework/bootstrap.min.js"></script>
+  <script src="/js/register/signin.js"></script>
   <script>
   (function(document, window, $) {
     'use strict';

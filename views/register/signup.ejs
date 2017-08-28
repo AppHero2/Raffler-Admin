@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
-  <title>Register Raffler Administrator</title>
+  <title>Register Administrator</title>
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="/images/favicon.png">
   
   <% include ../include/styles.ejs %>
-  <link rel="stylesheet" href="/css/include/signup.css">
+  <link rel="stylesheet" href="./assets/global/vendor/formvalidation/formValidation.css">
+  <link rel="stylesheet" href="/css/register/signup.css">
   
   <!-- Scripts -->
   <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
@@ -42,7 +43,7 @@
         </div>
         <h3 class="font-size-24">Sign Up</h3>
         <p>Please sign up as administrator of Raffler.</p>
-        <form method="post" role="form" autocomplete="off">
+        <form method="post" role="form" autocomplete="off" id="frm_signup">
           <div class="form-group form-material floating">
             <input type="text" class="form-control empty" id="inputName" name="name">
             <label class="floating-label" for="inputName">Name</label>
@@ -52,11 +53,17 @@
             <label class="floating-label" for="inputEmail">Email</label>
           </div>
           <div class="form-group form-material floating">
-            <input type="password" class="form-control empty" id="inputPassword" name="password">
+            <input type="password" class="form-control empty" id="inputPassword" name="password" data-fv-notempty="true"
+                            data-fv-notempty-message="The password is required and cannot be empty."
+                            data-fv-identical="true" data-fv-identical-field="passwordCheck"
+                            data-fv-identical-message="The password and its confirm are not the same.">
             <label class="floating-label" for="inputPassword">Password</label>
           </div>
           <div class="form-group form-material floating">
-            <input type="password" class="form-control empty" id="inputPasswordCheck" name="passwordCheck">
+            <input type="password" class="form-control empty" id="inputPasswordCheck" name="passwordCheck" data-fv-notempty="true"
+                            data-fv-notempty-message="The password is required and cannot be empty."
+                            data-fv-identical="true" data-fv-identical-field="password"
+                            data-fv-identical-message="The password and its confirm are not the same.">
             <label class="floating-label" for="inputPasswordCheck">Retype Password</label>
           </div>
           <div class="form-group clearfix">
@@ -66,7 +73,7 @@
             </div>
             <p class="margin-left-35">By clicking Sign Up, you agree to our <a href="#">Terms</a>.</p>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+          <button type="submit" class="btn btn-primary btn-block" id="btn_signup">Sign Up</button>
         </form>
         <p>Have account already? Please go to <a href="/signin">Sign In</a></p>
         <footer class="page-copyright">
@@ -89,7 +96,9 @@
   </div>
   <!-- End Page -->
   <% include ../include/scripts.ejs %>
-
+  <script src="/assets/global/vendor/formvalidation/formValidation.min.js"></script>
+  <script src="/assets/global/vendor/formvalidation/framework/bootstrap.min.js"></script>
+  <script src="/js/register/signup.js"></script>
   <script>
   (function(document, window, $) {
     'use strict';
