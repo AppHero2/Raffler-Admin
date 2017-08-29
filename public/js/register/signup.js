@@ -9,6 +9,13 @@ function initComponent() {
 
 function initEventHandler() {
 
+  signupHandler();
+}
+
+function signupHandler(){
+  $('#frm_signup').submit(function() {
+    $("#loadingModal").toggle("modal");
+  });
 }
 
 function initValidation() {
@@ -34,6 +41,16 @@ function initValidation() {
             },
             emailAddress: {
               message: 'The email address is not valid'
+            }
+          }
+        },
+        password: {
+          validators: {
+            notEmpty: {
+              message: 'The password is required'
+            },
+            stringLength: {
+              min: 6
             }
           }
         }

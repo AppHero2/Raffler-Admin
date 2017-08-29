@@ -11,7 +11,7 @@ router.post("/", (req, res, next) => {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
-
+    
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
         if (user) {
             firebase.database().ref('Admins').child(user.uid).set({
@@ -19,7 +19,7 @@ router.post("/", (req, res, next) => {
                 'role' : 0,
                 'allowed': false
             });
-            res.redirect("/dashboard");
+            res.redirect("/signin");
         }
     }).catch(function(error){
         console.log("Firebase-Error", error.message);

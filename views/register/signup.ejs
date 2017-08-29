@@ -4,15 +4,16 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description" content="bootstrap admin template">
+  <meta name="description" content="raffler admin signup">
   <meta name="author" content="">
   <title>Register Administrator</title>
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="/images/favicon.png">
   
   <% include ../include/styles.ejs %>
-  <link rel="stylesheet" href="./assets/global/vendor/formvalidation/formValidation.css">
+  <link rel="stylesheet" href="/assets/global/vendor/formvalidation/formValidation.css">
   <link rel="stylesheet" href="/css/register/signup.css">
+  <link rel="stylesheet" href="/css/include/loader.css">
   
   <!-- Scripts -->
   <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
@@ -34,13 +35,41 @@
           <h2 class="brand-text font-size-40"></h2>
         </div>
         <p class="font-size-20">A raffle often involves several different possible prizes that can be won, 
-            and a ticket will be drawn from the group at random for each of the prizes. </p>
+            and a ticket will be drawn from the group at random for each of the prizes.</p>
       </div>
       <div class="page-register-main">
         <div class="brand visible-xs">
           <img class="brand-img" src="/images/img_logo_200.png" alt="...">
           <h3 class="brand-text font-size-40"></h3>
         </div>
+        
+        <!-- Modal -->
+        <div class="modal fade modal-fill-in in" id="loadingModal" aria-hidden="false" aria-labelledby="exampleFillIn"
+        role="dialog" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+              </div>
+              <div class="modal-body text-center">
+                <!-- Loader -->
+                <div class="loader-wrapper active">
+                  <div class="loader-layer loader-blue-only">
+                    <div class="loader-circle-left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="loader-circle-gap"></div>
+                    <div class="loader-circle-right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Loader -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
+        
         <h3 class="font-size-24">Sign Up</h3>
         <p>Please sign up as administrator of Raffler.</p>
         <form method="post" role="form" autocomplete="off" id="frm_signup">
@@ -54,9 +83,7 @@
           </div>
           <div class="form-group form-material floating">
             <input type="password" class="form-control empty" id="inputPassword" name="password" data-fv-notempty="true"
-                            data-fv-notempty-message="The password is required and cannot be empty."
-                            data-fv-identical="true" data-fv-identical-field="passwordCheck"
-                            data-fv-identical-message="The password and its confirm are not the same.">
+                            data-fv-notempty-message="The password is required and cannot be empty.">
             <label class="floating-label" for="inputPassword">Password</label>
           </div>
           <div class="form-group form-material floating">
@@ -95,9 +122,13 @@
     </div>
   </div>
   <!-- End Page -->
+  
   <% include ../include/scripts.ejs %>
   <script src="/assets/global/vendor/formvalidation/formValidation.min.js"></script>
   <script src="/assets/global/vendor/formvalidation/framework/bootstrap.min.js"></script>
+  <!--<script src="/assets/global/vendor/jquery-appear/jquery.appear.js"></script>-->
+  <!--<script src="/assets/global/js/components/jquery-appear.js"></script>-->
+
   <script src="/js/register/signup.js"></script>
   <script>
   (function(document, window, $) {

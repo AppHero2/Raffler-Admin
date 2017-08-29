@@ -25,6 +25,9 @@ function initValidation() {
             notEmpty: {
               message: 'Password is required and cannot be empty.'
             }
+          },
+          stringLength: {
+            min: 6
           }
         },
         email: {
@@ -37,6 +40,7 @@ function initValidation() {
             }
           }
         }
+        
       }
     });
 }
