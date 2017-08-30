@@ -9,6 +9,8 @@ var bodyParser    = require('body-parser');
 var sassMiddleWare= require('node-sass-middleware');
 var app           = express();
 var server        = require('http').Server(app);
+var cookieParser  = require('cookie-parser');
+var session       = require('client-sessions');
 var firebase      = require('firebase');
 
 var config = {
@@ -28,6 +30,12 @@ function Raffler(config) {
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(cookieParser());
         app.use(express.static(path.join(__dirname, 'public')));
+        app.use(session({
+            cookieName: 'session',
+            secret: 'eg[isfd-8yF9-7w2315df{}+Ijslito8',
+            duration: 30 * 60 * 1000,
+            activeDuration: 5 * 60 * 1000,
+        }));
         app.use(require('./controllers'));
     };
 

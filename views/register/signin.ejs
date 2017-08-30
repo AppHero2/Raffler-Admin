@@ -41,9 +41,12 @@
           <img class="brand-img" src="/images/img_logo_200.png" alt="...">
           <h3 class="brand-text font-size-40"></h3>
         </div>
+
+        <% include ../include/loadingModal.ejs %>
+        
         <h3 class="font-size-24">Sign In</h3>
         <p>Please sign in to your admin account of Raffler.</p>
-        <form method="post" action="/sign" autocomplete="off" id="frm_signin">
+        <form method="post" action="/signin" autocomplete="off" id="frm_signin">
           <div class="form-group form-material floating">
             <input type="email" class="form-control empty" id="inputEmail" name="email">
             <label class="floating-label" for="inputEmail">Email</label>
@@ -61,7 +64,7 @@
             </div>
             <a class="pull-right" href="forgot-password.html">Forgot password?</a>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" id="btn_signin">Sign in</button>
+          <button type="button" class="btn btn-primary btn-block" id="btn_signin">Sign in</button>
         </form>
         <p>No account? <a href="/signup">Sign Up</a></p>
         <footer class="page-copyright">

@@ -15,6 +15,11 @@ function initEventHandler() {
 function signupHandler(){
   $('#frm_signup').submit(function() {
     $("#loadingModal").toggle("modal");
+    /*$('#wait').show();
+    $.post('/signin', function() {
+        $('#wait').hide();
+    });
+    return false;*/
   });
 }
 

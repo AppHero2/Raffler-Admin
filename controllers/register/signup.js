@@ -15,6 +15,7 @@ router.post("/", (req, res, next) => {
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
         if (user) {
             firebase.database().ref('Admins').child(user.uid).set({
+                'email': email,
                 'name' : name,
                 'role' : 0,
                 'allowed': false

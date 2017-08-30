@@ -5,10 +5,31 @@ window.onload = function() {
 
 function initComponent() {
     initValidation();
+    
 }
 
 function initEventHandler() {
+  $("#btn_signin").click(function(){
+    $("#loadingModal").toggle("modal");
+    var param = {
+      email: $("#inputEmail").val(),
+      password:$("#inputPassword").val()
+    };
 
+    $.ajax({
+      url: "/signin",
+      method: "POST",
+      data: param,
+      success: function(res){
+        $("#loadingModal").toggle("modal");
+        if (res.success) {
+          location.href = "/dashboard";
+        } else {
+          alert(res.error);
+        }
+      }
+    });
+  });
 }
 
 function initValidation() {
