@@ -5,11 +5,6 @@ var firebase = require('firebase');
 var Response = require("../../helper/response.js");
 
 router.get("/", (req, res, next) => {
-    
-    if (req.session && req.session.user) {
-        Response.redirect(res, "/dashboard");
-    }
-
     Response.render(res, "register/signin");
 });
 

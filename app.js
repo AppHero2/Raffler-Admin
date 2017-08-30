@@ -36,6 +36,7 @@ function Raffler(config) {
             duration: 30 * 60 * 1000,
             activeDuration: 5 * 60 * 1000,
         }));
+        app.use(authCheck);
         app.use(require('./controllers'));
     };
 
@@ -78,6 +79,14 @@ function Raffler(config) {
         self.initErrorHandler();
     };
 };
+
+authCheck = (req, res, next) => {
+    if (req.session.user || req.path=="/signin") {
+        next();     
+    } else {
+        res.redirect("/signin");
+    }
+}
 
 Raffler.startInstance = () => {
     var Configuration = require('./config.js');

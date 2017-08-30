@@ -9,7 +9,8 @@ function initComponent() {
 }
 
 function initEventHandler() {
-  $("#btn_signin").click(function(){
+  $("#frm_signin").unbind("submit").bind("submit", function(e){
+    e.preventDefault();
     $("#loadingModal").toggle("modal");
     var param = {
       email: $("#inputEmail").val(),
