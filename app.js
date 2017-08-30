@@ -81,7 +81,7 @@ function Raffler(config) {
 };
 
 authCheck = (req, res, next) => {
-    if (req.session.user || req.path=="/signin") {
+    if (req.session.user || req.path=="/signin" || req.path=="/signup") {
         next();     
     } else {
         res.redirect("/signin");

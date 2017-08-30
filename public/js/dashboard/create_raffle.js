@@ -16,6 +16,15 @@ $(document).ready(function(){
         console.log('Has Errors');
     });
 
+    $("#validateButton3").click(function(){
+        if ($("#input-file-now").parent().hasClass("has-preview")) {
+            var parent = $("#input-file-now").parent();
+            var preview = parent.find(".dropify-render")[0];
+            var img = preview.firstChild;
+            var imgBase64 = $(img).attr("src");
+        }
+    });
+    
 });
 
 (function(){
