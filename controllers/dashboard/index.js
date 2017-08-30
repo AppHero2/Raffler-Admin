@@ -4,13 +4,11 @@ var router  = express.Router();
 var Response = require("../../helper/response.js");
 
 router.get("/", (req, res, next) => {
-    var session = req.session;
-    
     res.render("dashboard/index");
 });
 
-router.get("/create", (req, res, next) => {
-    Response.redirect(res, "/dashboard");
+router.get("/create_raffle", (req, res, next) => {
+    res.render("dashboard/create_raffle");
 });
 
 module.exports = router;

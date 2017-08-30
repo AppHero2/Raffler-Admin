@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="raffler admin template">
+  <meta name="author" content="">
+  <title>Dashboard | Raffler Admin</title>
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <% include ../include/styles.ejs %>
+  <link rel="stylesheet" href="/assets/global/vendor/formvalidation/formValidation.css">
+  <link rel="stylesheet" href="/assets/global/vendor/dropify/dropify.css">
+  <link rel="stylesheet" href="/assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/assets/global/vendor/jt-timepicker/jquery-timepicker.css">
+  <link rel='stylesheet' href='/css/include/navbar.css'>
+  <!-- Scripts -->
+  <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
+  <script src="/assets/global/vendor/breakpoints/breakpoints.js"></script>
+  <script>
+  Breakpoints();
+  </script>
+</head>
+<body class="dashboard">
+  <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <% include ../include/navbar.ejs %>
+
+  <% include ../include/menubar.ejs %>
+
+  <% include ../include/gridmenu.ejs %>
+
+  <!-- Page -->
+  <div class="page animsition">
+    <div class="page-content padding-30 container-fluid">
+      <div class="row" data-plugin="matchHeight" data-by-row="true">
+        
+        <!-- Create Raffle -->
+        <div class="col-xlg-5 col-md-6">
+            <div class="panel" id = "create_raffle_panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Create Raffle</h3>
+                </div>
+                <div class="panel-body">
+                    <form id="frm_create_raffle" autocomplete="off">
+                        <div class="row form-group form-material">
+                            <label class="control-label">Title<span class="required">*</span></label>
+                            <input type="text" class="form-control" name="title" placeholder="Title of Raffle" required />
+                        </div>
+                        <div class="row margin-top-20 form-group form-material">
+                            <label class="control-label">EndAt<span class="required">*</span></label>
+                            <!--<input type="text" class="form-control" name="birthday" placeholder="YYYY/MM/DD" required />-->
+                            <div class="input-daterange-wrap">
+                                <div class="input-daterange">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                    <i class="icon md-calendar" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" class="form-control datepair-date datepair-start" data-plugin="datepicker">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                    <i class="icon md-time" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" class="form-control datepair-time datepair-start ui-timepicker-input" data-plugin="timepicker" autocomplete="off">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <input type="file" id="input-file-now" data-plugin="dropify" data-default-file="" />
+                        </div>
+                        <div class="row margin-top-20 text-right">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light" id="validateButton3">Submit</button>
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xlg-5 col-md-6">
+          <!-- Panel Projects -->
+          <div class="panel" id="list_raffles_panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Raffles</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <td>Raffles</td>
+                    <td>Completed</td>
+                    <td>Date</td>
+                    <td>Actions</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>The sun climbing plan</td>
+                    <td>
+                      <span data-plugin="peityPie" data-skin="red"> processing </span>
+                    </td>
+                    <td>Jan 1, 2015</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Edit">
+                        <i class="icon md-wrench" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Delete">
+                        <i class="icon md-close" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lunar probe project</td>
+                    <td>
+                      <span data-plugin="peityPie" data-skin="blue"> done </span>
+                    </td>
+                    <td>Feb 12, 2015</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Edit">
+                        <i class="icon md-wrench" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Delete">
+                        <i class="icon md-close" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dream successful plan</td>
+                    <td>
+                      <span data-plugin="peityPie" data-skin="green"> done </span>
+                    </td>
+                    <td>Apr 9, 2015</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Edit">
+                        <i class="icon md-wrench" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Delete">
+                        <i class="icon md-close" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Office automatization</td>
+                    <td>
+                      <span data-plugin="peityPie" data-skin="orange"> done </span>
+                    </td>
+                    <td>May 15, 2015</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Edit">
+                        <i class="icon md-wrench" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Delete">
+                        <i class="icon md-close" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Open strategy</td>
+                    <td>
+                      <span data-plugin="peityPie" data-skin="brown"> done </span>
+                    </td>
+                    <td>Jun 2, 2015</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Edit">
+                        <i class="icon md-wrench" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip"
+                      data-original-title="Delete">
+                        <i class="icon md-close" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- End Panel Projects -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-legal">© 2017 <a href="http://rafferchat.com">Raffler LLC</a></div>
+    <div class="site-footer-right">
+      Developed with <i class="red-600 icon md-favorite"></i> by <a href="http://rafferchat.com">Jack Huang</a>
+    </div>
+  </footer>
+
+<% include ../include/scripts.ejs %>
+
+<script src="/assets/global/vendor/matchheight/jquery.matchHeight-min.js"></script>
+<script src="/assets/global/vendor/switchery/switchery.min.js"></script>
+<script src="/assets/global/vendor/intro-js/intro.js"></script>
+<script src="/assets/global/vendor/screenfull/screenfull.js"></script>
+<script src="/assets/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+<script src="/assets/global/vendor/formvalidation/formValidation.min.js"></script>
+<script src="/assets/global/vendor/formvalidation/framework/bootstrap.min.js"></script>
+<script src="/assets/global/vendor/dropify/dropify.min.js"></script>
+<script src="/assets/global/vendor/datepair-js/datepair.min.js"></script>
+<script src="/assets/global/vendor/datepair-js/jquery.datepair.min.js"></script>
+<script src="/assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/assets/global/vendor/jt-timepicker/jquery.timepicker.min.js"></script>
+<script src="/assets/global/js/components/matchheight.js"></script>
+<script src="/assets/global/js/components/dropify.js"></script>
+<script src="/assets/global/js/components/datepair-js.js"></script>
+<script src="/assets/global/js/components/bootstrap-datepicker.js"></script>
+<script src="/assets/global/js/components/jt-timepicker.js"></script>
+<script src="/js/dashboard/create_raffle.js"></script>
+
+</body>
+</html>
