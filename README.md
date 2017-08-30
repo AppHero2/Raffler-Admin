@@ -1,7 +1,7 @@
 Raffler-Admin
 ===========
 
-[Raffler Admin](https://raffler-admin.herokuapp.com/), this module adds tweaks to make WhatsApp more useful to me. Currently includes:
+[Raffler Admin](https://raffler-admin.herokuapp.com/), this node.js project adds following features for WhatsApp style chat app([Raffler-Android](https://github.com/AppHero2/Raffler-Android.git)). Currently includes:
 
 - Front/Backend by using node.js
 - Bootstrap (using powerful theme)
