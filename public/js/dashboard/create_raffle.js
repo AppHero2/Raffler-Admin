@@ -9,14 +9,14 @@ $(document).ready(function(){
     });
 
     drEvent.on('dropify.afterClear', function(event, element){
-        alert('File deleted');
+        console.log('File deleted');
     });
 
     drEvent.on('dropify.errors', function(event, element){
         console.log('Has Errors');
     });
 
-    $("#validateButton3").click(function(){
+    $("#btn_submit").click(function(){
         if ($("#input-file-now").parent().hasClass("has-preview")) {
             var parent = $("#input-file-now").parent();
             var preview = parent.find(".dropify-render")[0];
@@ -31,7 +31,7 @@ $(document).ready(function(){
     $('#frm_create_raffle').formValidation({
       framework: "bootstrap",
       button: {
-        selector: '#validateButton1',
+        selector: '#btn_submit',
         disabled: 'disabled'
       },
       icon: null,
@@ -50,13 +50,48 @@ $(document).ready(function(){
             }
           }
         },
-        birthday: {
+        description:{
           validators: {
             notEmpty: {
-              message: 'Endind Date is required'
+              message: 'Description is required'
             },
-            date: {
-              format: 'YYYY/MM/DD'
+            stringLength: {
+              min: 10,
+              max: 500
+            }
+          }
+        },
+        ending_date: {
+          validators: {
+            notEmpty: {
+              message: 'Ending Date is required'
+            }
+          }
+        },
+        ending_time: {
+          validators: {
+            notEmpty: {
+              message: 'Ending Time is required'
+            }
+          }
+        },
+        raffles_num: {
+          validators: {
+            notEmpty: {
+              message: 'This field is required'
+            },
+            integer: {
+              message: 'The value is not an number'
+            }
+          }
+        },
+        winners_num: {
+          validators: {
+            notEmpty: {
+              message: 'This field is required'
+            },
+            integer: {
+              message: 'The value is not an number'
             }
           }
         }
