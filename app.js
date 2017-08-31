@@ -17,17 +17,27 @@ var config = {
   apiKey: "AIzaSyD-8--1ZFgnfx97q9lMq0vPAE52tz_hYFY",
   authDomain: "raffler-fbf05.firebaseapp.com",
   databaseURL: "https://raffler-fbf05.firebaseio.com",
-  storageBucket: "<BUCKET>.appspot.com",
+  storageBucket: "gs://raffler-fbf05.appspot.com",
 };
 firebase.initializeApp(config);
+
+var AWS         = require('aws-sdk');
+AWS.config.update({
+        accessKeyId: process.env.S3_KEY,
+        secretAccessKey: process.env.S3_SECRET,
+        region: 'us-east-1'
+    });
+AWS.config.apiVersions = {
+    s3: '2012-10-17'
+};
 
 function Raffler(config) {
     this.init = () => {
         app.set('views', path.join(__dirname, 'views'));
         app.set('view engine', 'ejs');
         app.use(logger('dev'));
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json({limit:"5mb"}));
+        app.use(bodyParser.urlencoded({limit:"5mb", extended: true }));
         app.use(cookieParser());
         app.use(express.static(path.join(__dirname, 'public')));
         app.use(session({

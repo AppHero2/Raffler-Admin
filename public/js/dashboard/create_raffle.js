@@ -1,6 +1,9 @@
 $(document).ready(function(){
     Site.run();
 
+    $('#datetimepicker').datetimepicker();
+    var $dp = $("#datetimepicker").data("DateTimePicker");    
+
     // Used events
     var drEvent = $('#input-file-now').dropify();
 
@@ -16,13 +19,64 @@ $(document).ready(function(){
         console.log('Has Errors');
     });
 
-    $("#btn_submit").click(function(){
-        if ($("#input-file-now").parent().hasClass("has-preview")) {
-            var parent = $("#input-file-now").parent();
-            var preview = parent.find(".dropify-render")[0];
-            var img = preview.firstChild;
-            var imgBase64 = $(img).attr("src");
+    $("#btn_submit").click(function(e){
+      
+      e.preventDefault();
+
+      var des = $("#description").val();
+      console.log(des);
+      if (des.length < 10){
+        alert("You should input description.");
+        return false;
+      }
+
+      if ($dp.date() == null){
+        alert("You should select date");
+        return false;
+      }
+      var milisecondsSince1970 = $dp.date().unix();
+
+      var imgBase64 = "";
+      if ($("#input-file-now").parent().hasClass("has-preview")) {
+          var parent = $("#input-file-now").parent();
+          var preview = parent.find(".dropify-render")[0];
+          var img = preview.firstChild;
+          imgBase64 = $(img).attr("src");
+      } else {
+        alert("You should select cover image.");
+        return false;
+      }
+
+      var param = {
+        description: $("#description").val(),
+        ending_date: milisecondsSince1970,
+        raffles_num: $("#raffles_num").val(),
+        winners_num: $("#winners_num").val(),
+        base64Image: imgBase64
+      };
+
+      console.log(param);
+
+      var loadingSpinner = Ladda.create(this);
+      loadingSpinner.start();
+
+      $.ajax({
+        url: "/create_raffle",
+        method: "POST",
+        data: param,
+        success: function(res){
+          
+          loadingSpinner.stop();
+
+          if (res.success) {
+            location.href = "/dashboard/create_raffle";
+          } else {
+            alert(res.error);
+          }
         }
+      });
+
+      return true;
     });
     
 });
