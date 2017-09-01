@@ -59,7 +59,7 @@ router.post("/", (req, res, next) => {
             }, (success) => {
                 console.log(success);
             });
-            writeNewPost(description, ending_date, raffles_num, winners_num, imageLink);
+        
         }
     });
 

@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="/assets/global/vendor/jt-timepicker/jquery-timepicker.css">
   <link rel="stylesheet" href="/assets/global/vendor/ladda-bootstrap/ladda.css">
   <link rel="stylesheet" href="/assets/global/vendor/datetimepicker/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="/assets/global/vendor/datatables-bootstrap/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="/assets/global/vendor/datatables-fixedheader/dataTables.fixedHeader.css">
+  <link rel="stylesheet" href="/assets/global/vendor/datatables-responsive/dataTables.responsive.css">
   <link rel='stylesheet' href='/css/include/navbar.css'>
   <!-- Scripts -->
   <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
@@ -42,7 +45,7 @@
       <div class="row" data-plugin="matchHeight" data-by-row="true">
         
         <!-- Create Raffle -->
-        <div class="col-xlg-6 col-md-6">
+        <div class="col-xlg-4 col-md-4">
             <div class="panel" id = "create_raffle_panel">
 
                 <div class="panel-heading">
@@ -64,27 +67,10 @@
                         </div>
                         <div class="row margin-top-20 form-group form-material">
                             <label class="control-label">Needed Raffles<span class="required">*</span></label>
-                            <input type="text" class="form-control" id="raffles_num" name="raffles_num" data-fv-lessthan="true" data-fv-lessthan-value="50" data-fv-greaterthan-message="please enter less than 50" placeholder="max = 50" data-fv-field="vMax" required>
+                            <input type="text" class="form-control" id="raffles_num" name="raffles_num" data-fv-lessthan="true" data-fv-lessthan-value="500" data-fv-greaterthan-message="please enter less than 500" placeholder="max = 500" data-fv-field="vMax" required>
                         </div>
                         <div class="row margin-top-20 form-group form-material">
                             <label class="control-label">EndAt<span class="required">*</span></label>
-                            <!--<input type="text" class="form-control" name="birthday" placeholder="YYYY/MM/DD" required />-->
-                            <!--<div class="input-daterange-wrap">
-                                <div class="input-daterange">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                    <i class="icon md-calendar" aria-hidden="true"></i>
-                                    </span>
-                                    <input type="text" id="ending_date" name="ending_date" class="form-control datepair-date datepair-start" data-plugin="datepicker" required>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                    <i class="icon md-time" aria-hidden="true"></i>
-                                    </span>
-                                    <input type="text" id="ending_time" name="ending_time" class="form-control datepair-time datepair-start ui-timepicker-input" data-plugin="timepicker" autocomplete="off" required>
-                                </div>
-                                </div>
-                            </div>-->
                             <div class='input-group date' id='datetimepicker'>
                                 <input type='text' class="form-control" name="ending_date" required/>
                                 <span class="input-group-addon">
@@ -107,31 +93,42 @@
             </div>
         </div>
 
-        <div class="col-xlg-6 col-md-6">
-          <!-- Panel Projects -->
-          <div class="panel" id="list_raffles_panel">
-            <div class="panel-heading">
-              <h3 class="panel-title">Raffles</h3>
+        <div class="col-xlg-8 col-md-8">
+          
+            <!-- Panel Basic -->
+            <div class="panel" id="list_raffles_panel">
+                <header class="panel-heading">
+                <div class="panel-actions"></div>
+                <h3 class="panel-title">Raffles</h3>
+                </header>
+                <div class="panel-body">
+                <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable" id="tbl_raffles">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">No.</th>
+                        <th class="col-md-4">Description</th>
+                        <th class="col-md-2">Status</th>
+                        <th class="col-md-3">Date</th>
+                        <th class="col-md-1">$$</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>No.</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>$$</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                </table>
+                </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-striped" id="tbl-raffles">
-                <thead>
-                  <tr>
-                    <td class="col-sm-4 col-md-4 col-lg-4">Raffles</td>
-                    <td class="col-sm-3 col-md-3 col-lg-3">Completed</td>
-                    <td class="col-sm-3 col-md-3 col-lg-3">Date</td>
-                    <td class="col-sm-2 col-md-2 col-lg-2">Actions</td>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- End Panel Projects -->
+            <!-- End Panel Basic-->
         </div>
 
-      </div>
     </div>
   </div>
   <!-- End Page -->
@@ -161,6 +158,11 @@
 <script src="/assets/global/vendor/ladda-bootstrap/ladda.js"></script>
 <script src="/assets/global/vendor/moment/moment.min.js"></script>
 <script src="/assets/global/vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/global/vendor/datatables/jquery.dataTables.js"></script>
+<script src="/assets/global/vendor/datatables-fixedheader/dataTables.fixedHeader.js"></script>
+<script src="/assets/global/vendor/datatables-bootstrap/dataTables.bootstrap.js"></script>
+<script src="/assets/global/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<script src="/assets/global/vendor/datatables-tabletools/dataTables.tableTools.js"></script>
 <script src="/assets/global/js/components/matchheight.js"></script>
 <script src="/assets/global/js/components/dropify.js"></script>
 <script src="/assets/global/js/components/datepair-js.js"></script>
@@ -168,6 +170,7 @@
 <script src="/assets/global/js/components/jt-timepicker.js"></script>
 <script src="/assets/global/js/components/buttons.js"></script>
 <script src="/assets/global/js/components/ladda-bootstrap.js"></script>
+<script src="/assets/global/js/components/datatables.js"></script>
 <script src="/js/dashboard/create_raffle.js"></script>
 
 </body>

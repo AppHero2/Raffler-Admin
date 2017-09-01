@@ -1,7 +1,15 @@
+var tbl_raffles;
+
 $(document).ready(function(){
     Site.run();
 
-    $('#datetimepicker').datetimepicker();
+    tbl_raffles = $('#tbl_raffles').DataTable();
+
+    $('#datetimepicker').datetimepicker({
+        inline: false,
+        sideBySide: false
+    });
+
     var $dp = $("#datetimepicker").data("DateTimePicker");      
     $("#datetimepicker").on("dp.change", function (e) {
          $('#frm_create_raffle').formValidation('revalidateField', 'ending_date');
@@ -21,7 +29,7 @@ $(document).ready(function(){
         console.log('Has Errors');
     });
 
-    $("#frm_create_raffle").submit(function(e){
+    $("#frm_create_raffle").unbind("submit").bind("submit", function(e){
       e.preventDefault();
 
       var des = $("#description").val();
@@ -35,6 +43,7 @@ $(document).ready(function(){
         alert("You should select date");
         return false;
       }
+
       var milisecondsSince1970 = $dp.date().unix();
 
       var imgBase64 = "";
@@ -56,8 +65,6 @@ $(document).ready(function(){
         base64Image: imgBase64
       };
 
-      console.log(param);
-
       var loadingSpinner = Ladda.create(this);
       loadingSpinner.start();
 
@@ -77,7 +84,8 @@ $(document).ready(function(){
         }
       });
 
-      return true;
+      return false;
+
     });
     
     GetData(function(raffles){
@@ -86,12 +94,14 @@ $(document).ready(function(){
 });
 
 function renderData(raffles) {
+
     for (var i=0; i<raffles.length; i++) {
-        var html = "";
+        /*var html = "";
         html += "<tr id=" + raffles[i].key + ">";
+        html += "<td>" + i + "</td>";
         html += "<td>" + raffles[i].description + "</td>";
         html += "<td>" + raffles[i].isClosed + "</td>";
-        html += "<td>" + raffles[i].ending_date + "</td>";
+        html += "<td>" + timeFormater(moment.unix(raffles[i].ending_date)) + "</td>";
         html += "<td>";
         html +=     "<button type='button' class='btn btn-sm btn-icon btn-pure btn-default' data-toggle='tooltip' data-original-title='Edit'>";
         html +=         "<i class='icon md-wrench' aria-hidden='true'></i>";
@@ -101,8 +111,33 @@ function renderData(raffles) {
         html +=     "</button>";
         html += "</td>";
         html += "</tr>";
-        $("#tbl-raffles").append(html);
+        $("#tbl_raffles").append(html);*/
+
+        var index = i;
+        var description = raffles[i].description;
+        var isClosed = raffles[i].isClosed;
+        var ending_date = timeFormater(moment.unix(raffles[i].ending_date));
+        var raffles_num = raffles[i].raffles_num;
+        tbl_raffles.row.add([i, description, isClosed, ending_date, raffles_num]).draw(false);
     }
+}
+
+function timeFormater(UNIX_timestamp){
+  var dateTimeString = moment(UNIX_timestamp).format("MM/DD/YYYY HH:mm");
+  return dateTimeString;
+}
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;// + ':' + sec ;
+  return time;
 }
 
 function GetData(callback) {
