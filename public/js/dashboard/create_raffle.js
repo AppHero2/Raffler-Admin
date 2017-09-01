@@ -80,7 +80,44 @@ $(document).ready(function(){
       return true;
     });
     
+    GetData(function(raffles){
+        renderData(raffles);
+    });
 });
+
+function renderData(raffles) {
+    for (var i=0; i<raffles.length; i++) {
+        var html = "";
+        html += "<tr id=" + raffles[i].key + ">";
+        html += "<td>" + raffles[i].description + "</td>";
+        html += "<td>" + raffles[i].isClosed + "</td>";
+        html += "<td>" + raffles[i].ending_date + "</td>";
+        html += "<td>";
+        html +=     "<button type='button' class='btn btn-sm btn-icon btn-pure btn-default' data-toggle='tooltip' data-original-title='Edit'>";
+        html +=         "<i class='icon md-wrench' aria-hidden='true'></i>";
+        html +=     "</button>";
+        html +=     "<button type='button' class='btn btn-sm btn-icon btn-pure btn-default' data-toggle='tooltip' data-original-title='Delete'>";
+        html +=         "<i class='icon md-close' aria-hidden='true'></i>";
+        html +=     "</button>";
+        html += "</td>";
+        html += "</tr>";
+        $("#tbl-raffles").append(html);
+    }
+}
+
+function GetData(callback) {
+    $.ajax({
+        url: "/create_raffle/getData",
+        method: "POST",
+        success: function(res) {
+            if (res.success) {
+                callback(res.data);
+            } else {
+                callback([]);
+            }
+        }
+    });
+}
 
 (function(){
     $('#frm_create_raffle').formValidation({

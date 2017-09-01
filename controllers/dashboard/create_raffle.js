@@ -5,10 +5,11 @@ var firebase = require('firebase');
 var AWS         = require('aws-sdk');
 var bucket_name = 'raffler-admin/raffles';
 
-var Response = require("../../helper/response.js");
+var Response    = require("../../helper/response.js");
+var Raffle      = require("../../models/raffle.js");
 
 router.get("/", (req, res, next) => {
-    res.render("dashboard/create_raffle");
+    Response.render(res, "dashboard/create_raffle");
 });
 
 router.post("/", (req, res, next) => {
@@ -48,26 +49,31 @@ router.post("/", (req, res, next) => {
             console.log('succesfully uploaded the image!', data);
             var imageLink = "https://s3.amazonaws.com/raffler-admin/raffles/" + file_name;
 
+            Raffle.saveData({
+                description: description,
+                ending_date: ending_date,
+                raffles_num: raffles_num,
+                winners_num: winners_num,
+                imageLink: imageLink,
+                isClosed: false
+            }, (success) => {
+                console.log(success);
+            });
             writeNewPost(description, ending_date, raffles_num, winners_num, imageLink);
         }
     });
 
 });
 
-function writeNewPost(description, ending_date, raffles_num, winners_num, imageLink) {
-  // A post entry.
-  var postData = {
-    description: description,
-    ending_date: ending_date,
-    raffles_num: raffles_num,
-    winners_num: winners_num,
-    imageLink: imageLink,
-    isClosed: false
-  };
-
-  // Get a key for a new Post.
-  firebase.database().ref().child('Raffles').push(postData);
-}
+router.post("/getData", (req, res, next) => {
+    Raffle.getData(null, (err, raffles) => {
+        if (err) {
+            Response.send(res, {success: false, error: err});    
+        } else {
+            Response.send(res, {success: true, data: raffles});
+        }
+    });
+});
 
 function randomString(length) {
     var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
