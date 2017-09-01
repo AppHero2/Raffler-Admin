@@ -17,7 +17,7 @@ router.post("/", (req, res, next) => {
     var raffles_num = req.body.raffles_num;
     var winners_num = req.body.winners_num;
     var base64Image = req.body.base64Image;
-
+    
     var file_name = randomString(8) + ".jpg";
     
     var awsS3Client = new AWS.S3({
@@ -66,14 +66,7 @@ function writeNewPost(description, ending_date, raffles_num, winners_num, imageL
   };
 
   // Get a key for a new Post.
-  var newPostKey = firebase.database().ref().child('Raffles').push().key;
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  var updates = {};
-  updates['/Raffles/' + newPostKey] = postData;
-//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
-  return firebase.database().ref().update(updates);
+  firebase.database().ref().child('Raffles').push(postData);
 }
 
 function randomString(length) {

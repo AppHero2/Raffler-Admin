@@ -43,8 +43,8 @@ function Raffler(config) {
         app.use(session({
             cookieName: 'session',
             secret: 'eg[isfd-8yF9-7w2315df{}+Ijslito8',
-            duration: 3000 * 60 * 1000,
-            activeDuration: 500 * 60 * 1000,
+            duration: 30 * 60 * 1000,
+            activeDuration: 5 * 60 * 1000,
         }));
         app.use(authCheck);
         app.use(require('./controllers'));
