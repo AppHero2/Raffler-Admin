@@ -2,8 +2,10 @@ $(document).ready(function(){
     Site.run();
 
     $('#datetimepicker').datetimepicker();
-    var $dp = $("#datetimepicker").data("DateTimePicker");    
-
+    var $dp = $("#datetimepicker").data("DateTimePicker");      
+    $("#datetimepicker").on("dp.change", function (e) {
+         $('#frm_create_raffle').formValidation('revalidateField', 'ending_date');
+    });
     // Used events
     var drEvent = $('#input-file-now').dropify();
 
@@ -119,13 +121,9 @@ $(document).ready(function(){
           validators: {
             notEmpty: {
               message: 'Ending Date is required'
-            }
-          }
-        },
-        ending_time: {
-          validators: {
-            notEmpty: {
-              message: 'Ending Time is required'
+            },
+            date: {
+              format: 'MM/DD/YYYY hh:mm am'
             }
           }
         },

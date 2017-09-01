@@ -7,6 +7,7 @@ Raffler-Admin
 - Bootstrap (using powerful theme)
 - Firebase Authentication
 - Firebase Real-time database
+- Save base64 image to AWS S3 bucket
 
 ### Building the project
 

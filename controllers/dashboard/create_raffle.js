@@ -17,9 +17,6 @@ router.post("/", (req, res, next) => {
     var raffles_num = req.body.raffles_num;
     var winners_num = req.body.winners_num;
     var base64Image = req.body.base64Image;
-    // var png = base64Image.split(',')[1];
-    // var contentType = 'image/png';
-    // var blob = b64toBlob(png, contentType);
 
     var file_name = randomString(8) + ".jpg";
     
@@ -51,45 +48,33 @@ router.post("/", (req, res, next) => {
             console.log('succesfully uploaded the image!', data);
             var imageLink = "https://s3.amazonaws.com/raffler-admin/raffles/" + file_name;
 
-            
+            writeNewPost(description, ending_date, raffles_num, winners_num, imageLink);
         }
     });
 
-    /*
-    var uploader = client.uploadFile(params);
-    uploader.on('error', function(error){
-        console.error("unable to upload:", error.stack);
-    });
-    uploader.on('progress', function(){
-        console.log("progress", uploader.progressMd5Amount, uploader.progressAmount, uploader.progressTotal);
-    });
-    uploader.on('end', function(){
-        console.log("done uploading");
-    });*/
-
 });
 
-// function writeNewPost(description, , picture, title, body) {
-//   // A post entry.
-//   var postData = {
-//     author: username,
-//     uid: uid,
-//     body: body,
-//     title: title,
-//     starCount: 0,
-//     authorPic: picture
-//   };
+function writeNewPost(description, ending_date, raffles_num, winners_num, imageLink) {
+  // A post entry.
+  var postData = {
+    description: description,
+    ending_date: ending_date,
+    raffles_num: raffles_num,
+    winners_num: winners_num,
+    imageLink: imageLink,
+    isClosed: false
+  };
 
-//   // Get a key for a new Post.
-//   var newPostKey = firebase.database().ref().child('posts').push().key;
+  // Get a key for a new Post.
+  var newPostKey = firebase.database().ref().child('Raffles').push().key;
 
-//   // Write the new post's data simultaneously in the posts list and the user's post list.
-//   var updates = {};
-//   updates['/posts/' + newPostKey] = postData;
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  var updates = {};
+  updates['/Raffles/' + newPostKey] = postData;
 //   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
 
-//   return firebase.database().ref().update(updates);
-// }
+  return firebase.database().ref().update(updates);
+}
 
 function randomString(length) {
     var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
