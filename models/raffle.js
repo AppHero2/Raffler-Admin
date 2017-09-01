@@ -20,7 +20,21 @@ Raffle.getData = (id, callback) => {
 }
 
 Raffle.saveData = (data, callback) => {
-    firebase.database().ref().child('Raffles').push(data);
+    var rafflesRef = firebase.database().ref().child('Raffles').push();
+    var key = rafflesRef.key;
+    data.idx = key;
+    rafflesRef.set(data, function(error){
+        if (error) {
+            callback({
+                success: false,
+                error : error
+            });
+        } else {
+            callback({
+                success: true
+            });
+        }
+    });
 }
 
 GetAllData = (callback) => {

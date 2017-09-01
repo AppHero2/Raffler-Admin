@@ -34,6 +34,7 @@ router.post("/", (req, res, next) => {
         ContentEncoding: 'base64',
         ContentType: 'image/jpeg'
     };
+
     awsS3Client.putObject(data, function(err, data){
         if (err) { 
             console.log(err);
@@ -43,9 +44,7 @@ router.post("/", (req, res, next) => {
                 "error": err
             });
         } else {
-            Response.send(res, {
-                "success": true
-            });
+            
             console.log('succesfully uploaded the image!', data);
             var imageLink = "https://s3.amazonaws.com/raffler-admin/raffles/" + file_name;
 
@@ -56,8 +55,17 @@ router.post("/", (req, res, next) => {
                 winners_num: winners_num,
                 imageLink: imageLink,
                 isClosed: false
-            }, (success) => {
-                console.log(success);
+            }, (callback) => {
+                if (callback.success) {
+                    Response.send(res, {
+                        "success": true
+                    });
+                } else {
+                    Response.send(res, {
+                        "success": false,
+                        "error": callback.error
+                    });
+                }
             });
         
         }
