@@ -13,7 +13,7 @@ function initEventHandler() {
 }
 
 function signupHandler(){
-  $('#frm_signup').submit(function() {
+  $('#frm_signup').submit(function(e) {
     $("#loadingModal").toggle("modal");
     /*$('#wait').show();
     $.post('/signin', function() {

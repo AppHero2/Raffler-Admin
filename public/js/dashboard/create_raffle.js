@@ -21,8 +21,7 @@ $(document).ready(function(){
         console.log('Has Errors');
     });
 
-    $("#btn_submit").click(function(e){
-      
+    $("#frm_create_raffle").submit(function(e){
       e.preventDefault();
 
       var des = $("#description").val();
