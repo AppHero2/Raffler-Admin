@@ -118,7 +118,7 @@ function renderData(raffles) {
         var isClosed = raffles[i].isClosed;
         var ending_date = timeFormater(moment.unix(raffles[i].ending_date));
         var raffles_num = raffles[i].raffles_num;
-        tbl_raffles.row.add([i, description, isClosed, ending_date, raffles_num]).draw(false);
+        tbl_raffles.row.add([index, description, isClosed, ending_date, raffles_num]).draw(false);
     }
 }
 
