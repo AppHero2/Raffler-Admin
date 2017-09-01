@@ -113,7 +113,7 @@ function renderData(raffles) {
         html += "</tr>";
         $("#tbl_raffles").append(html);*/
 
-        var index = i;
+        var index = i+1;
         var description = raffles[i].description;
         var isClosed = raffles[i].isClosed;
         var ending_date = timeFormater(moment.unix(raffles[i].ending_date));
