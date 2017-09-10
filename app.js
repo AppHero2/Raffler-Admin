@@ -82,11 +82,41 @@ function Raffler(config) {
         });
     };
 
+    this.doBackgroundJob = () => {
+        setInterval(function(){
+            http.get('https://raffler-admin.herokuapp.com/');
+        },300000);
+
+        setInterval(function(){
+
+        }, 60000);
+
+        doManageRaffle();
+    }
+
+    function doManageRaffle(){
+        var d = new Date();
+        var n = d.getTime();
+        var currentTime = Math.floor(n/1000);
+        console.log("server time : ", currentTime);
+        // check winner for every raffles
+        var startTime = currentTime - 600000;
+        var query = firebase.database().ref('Raffles').orderByChild('ending_date').startAt(startTime).endAt(currentTime);
+        query.once('value', function(snapshot){
+            if (snapshot.val() != null){
+                snapshot.forEach(function(obj){
+                    console.log(obj);
+                });
+            }
+        });
+    }
+
     this.start = () => {
         var self = this;
         self.initSassMiddleWare();
         self.init();
         self.initErrorHandler();
+        self.doBackgroundJob();
     };
 };
 

@@ -10,7 +10,7 @@ $(document).ready(function(){
         sideBySide: false
     });
 
-    var $dp = $("#datetimepicker").data("DateTimePicker");      
+    var datetimepicker = $("#datetimepicker").data("DateTimePicker");      
     $("#datetimepicker").on("dp.change", function (e) {
          $('#frm_create_raffle').formValidation('revalidateField', 'ending_date');
     });
@@ -39,12 +39,12 @@ $(document).ready(function(){
         return false;
       }
 
-      if ($dp.date() == null){
+      if (datetimepicker.date() == null){
         alert("You should select date");
         return false;
       }
 
-      var milisecondsSince1970 = $dp.date().unix();
+      var milisecondsSince1970 = datetimepicker.date().unix();
 
       var imgBase64 = "";
       if ($("#input-file-now").parent().hasClass("has-preview")) {
@@ -96,23 +96,6 @@ $(document).ready(function(){
 function renderData(raffles) {
 
     for (var i=0; i<raffles.length; i++) {
-        /*var html = "";
-        html += "<tr id=" + raffles[i].key + ">";
-        html += "<td>" + i + "</td>";
-        html += "<td>" + raffles[i].description + "</td>";
-        html += "<td>" + raffles[i].isClosed + "</td>";
-        html += "<td>" + timeFormater(moment.unix(raffles[i].ending_date)) + "</td>";
-        html += "<td>";
-        html +=     "<button type='button' class='btn btn-sm btn-icon btn-pure btn-default' data-toggle='tooltip' data-original-title='Edit'>";
-        html +=         "<i class='icon md-wrench' aria-hidden='true'></i>";
-        html +=     "</button>";
-        html +=     "<button type='button' class='btn btn-sm btn-icon btn-pure btn-default' data-toggle='tooltip' data-original-title='Delete'>";
-        html +=         "<i class='icon md-close' aria-hidden='true'></i>";
-        html +=     "</button>";
-        html += "</td>";
-        html += "</tr>";
-        $("#tbl_raffles").append(html);*/
-
         var index = i+1;
         var description = raffles[i].description;
         var isClosed = raffles[i].isClosed;
