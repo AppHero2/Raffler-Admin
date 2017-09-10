@@ -51,8 +51,8 @@ router.post("/", (req, res, next) => {
             Raffle.saveData({
                 description: description,
                 ending_date: ending_date * 1000,
-                raffles_num: raffles_num,
-                winners_num: winners_num,
+                raffles_num: raffles_num * 1,
+                winners_num: winners_num * 1,
                 imageLink: imageLink,
                 isClosed: false
             }, (callback) => {
