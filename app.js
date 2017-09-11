@@ -157,8 +157,8 @@ function Raffler(config) {
                         
                         if (rafflers != null) {
                             var arr_rafflerIds = new Array();
-                            for(var rafflerId in rafflers){
-                                arr_rafflerIds.push(rafflerId);
+                            for(var index in rafflers){
+                                arr_rafflerIds.push(rafflers[index]);
                             }
                             
                             // select random winners among raffler ids
