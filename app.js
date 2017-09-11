@@ -12,6 +12,11 @@ var server        = require('http').Server(app);
 var cookieParser  = require('cookie-parser');
 var session       = require('client-sessions');
 var firebase      = require('firebase');
+const OneSignalClient = require('node-onesignal-api');
+const push_client = new OneSignalClient({
+   appId: '7be96e60-3549-4004-bfc7-a8f191fb8bfe',
+   restApiKey: 'OWJkM2EyMDMtZWUwYi00Y2VkLWFjMDYtMGI3YTAzYzM2MWM4'
+});
 
 var config = {
   apiKey: "AIzaSyD-8--1ZFgnfx97q9lMq0vPAE52tz_hYFY",
@@ -83,6 +88,7 @@ function Raffler(config) {
     };
 
     this.doBackgroundJob = () => {
+        var http = require('https');
         setInterval(function(){
             http.get('https://raffler-admin.herokuapp.com/');
         },300000);
@@ -94,18 +100,91 @@ function Raffler(config) {
         doManageRaffle();
     }
 
+    function getRandom(num, arr){
+        arr.sort( function() { return 0.5 - Math.random() } );
+        return arr.splice(0, num);
+    }
+
+    function sendPushNotification(userId){
+        var query = firebase.database().ref('Users').orderByChild('uid').equalTo(userId);
+        query.once('value', function(snapshot){
+            if (snapshot.val() != null) {
+                snapshot.forEach(function(obj){
+                    var key = obj.key;
+                    var pushToken = obj.val().pushToken;
+                    if (pushToken != null) {
+                        // send a notification 
+                        push_client.createNotification({
+                            contents: {
+                                contents: 'Great News! You won the prize.'
+                            },
+                            specific: {
+                                include_player_ids: [pushToken]
+                            },
+                            attachments: {
+                                data: {
+                                    hello: "Great News! You won the prize."
+                                }
+                            }
+                        }).then(success => {
+                            // .. 
+                        })
+                    }
+                });
+            }
+        });
+    }
+
     function doManageRaffle(){
         var d = new Date();
-        var n = d.getTime();
-        var currentTime = Math.floor(n/1000);
-        console.log("server time : ", currentTime);
+        var currentTime = d.getTime();
+        console.log("server time", currentTime);
         // check winner for every raffles
-        var startTime = currentTime - 600000;
-        var query = firebase.database().ref('Raffles').orderByChild('ending_date').startAt(startTime).endAt(currentTime);
+        var query = firebase.database().ref('Raffles').orderByChild('isClosed').equalTo(false);
         query.once('value', function(snapshot){
-            if (snapshot.val() != null){
+            if (snapshot.val() != null) {
                 snapshot.forEach(function(obj){
-                    console.log(obj);
+                    var key = obj.key;
+                    var ending_date = obj.val().ending_date;
+                    var winners_num = obj.val().winners_num;
+                    var raffles_num = obj.val().raffles_num;
+                    var isClosed = obj.val().isClosed;
+                    var rafflers = obj.val().rafflers;
+
+                    if (ending_date <= currentTime) {
+                        
+                        if (rafflers != null) {
+                            var arr_rafflerIds = new Array();
+                            for(var rafflerId in rafflers){
+                                arr_rafflerIds.push(rafflerId);
+                            }
+                            
+                            // select random winners among raffler ids
+                            var arr_winnerIds = new Array();
+                            if (arr_rafflerIds.length > winners_num) {
+                                arr_winnerIds = getRandom(winners_num, arr_rafflerIds);
+                            } else {
+                                arr_rafflerIds = arr_rafflerIds;
+                            }
+                            
+                            var dict = {};
+                            for (var i=0; i < arr_winnerIds.length; i++){
+                                var rafflerId = arr_rafflerIds[i];
+                                dict[rafflerId] = true;
+
+                                //send push notification
+                                sendPushNotification(rafflerId);
+                            }
+
+                            console.log('winners' , dict);
+
+                            firebase.database().ref('Raffles').child(key).child('winners').set(dict);
+                        }
+                    
+                        // make raffle as expired
+                        firebase.database().ref('Raffles').child(key).child('isClosed').set(true);
+                    }
+
                 });
             }
         });
