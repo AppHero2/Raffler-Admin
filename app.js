@@ -145,9 +145,11 @@ function Raffler(config) {
             if (snapshot.val() != null) {
                 snapshot.forEach(function(obj){
                     var key = obj.key;
+                    var description = obj.val().description;
                     var ending_date = obj.val().ending_date;
                     var winners_num = obj.val().winners_num;
                     var raffles_num = obj.val().raffles_num;
+                    var imageLink = obj.val().imageLink;
                     var isClosed = obj.val().isClosed;
                     var rafflers = obj.val().rafflers;
 
@@ -174,6 +176,23 @@ function Raffler(config) {
 
                                 //send push notification
                                 sendPushNotification(rafflerId);
+                            }
+
+                            var raffle = {
+                                'idx': key,
+                                'description': description,
+                                'ending_date': ending_date,
+                                'imageLink': imageLink, 
+                                'isClosed' : true,
+                                'rafflers' : rafflers,
+                                'winners' : dict,
+                                'raffles_num' : raffles_num,
+                                'winners_num' : winners_num
+                            }
+
+                            //save prizes data for winners
+                            for (var i=0; i < arr_winnerIds.length; i++) {
+                                firebase.database().ref('Prizes').child(rafflerId).child(raffle);
                             }
 
                             console.log('winners' , dict);
