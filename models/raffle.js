@@ -43,6 +43,7 @@ GetAllData = (callback) => {
             var raffles = [];
             snapshot.forEach(function(obj){
                 var key = obj.key;
+                var title = obj.val().title;
                 var description = obj.val().description;
                 var ending_date = obj.val().ending_date;
                 var raffles_num = obj.val().raffles_num;
@@ -52,6 +53,7 @@ GetAllData = (callback) => {
                 
                 raffles.push({
                     key         : key,
+                    title       : title,
                     description : description,
                     ending_date : ending_date,
                     raffles_num : raffles_num,

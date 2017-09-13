@@ -105,34 +105,33 @@ function Raffler(config) {
         return arr.splice(0, num);
     }
 
-    function sendPushNotification(userId){
-        var query = firebase.database().ref('Users').orderByChild('uid').equalTo(userId);
-        query.once('value', function(snapshot){
-            if (snapshot.val() != null) {
-                snapshot.forEach(function(obj){
-                    var key = obj.key;
-                    var pushToken = obj.val().pushToken;
-                    if (pushToken != null) {
-                        // send a notification 
-                        push_client.createNotification({
-                            contents: {
-                                contents: 'Great News! You won the prize.'
-                            },
-                            specific: {
-                                include_player_ids: [pushToken]
-                            },
-                            attachments: {
-                                data: {
-                                    hello: "Great News! You won the prize."
-                                }
-                            }
-                        }).then(success => {
-                            // .. 
-                        })
-                    }
-                });
+    function sendPushNotification(message, pushTokens){
+        push_client.createNotification({
+            contents: {
+                contents: message
+            },
+            specific: {
+                include_player_ids: pushTokens
+            },
+            attachments: {
+                data: {
+                    hello: message
+                }
             }
-        });
+        }).then(success => {
+            console.log('sendPush', success);
+        })
+    }
+
+    function contains(a, obj) {
+        var i = a.length;
+        while (i--) {
+            var map = a[i];
+            if (map.uid === obj.uid) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function doManageRaffle(){
@@ -145,60 +144,69 @@ function Raffler(config) {
             if (snapshot.val() != null) {
                 snapshot.forEach(function(obj){
                     var key = obj.key;
+                    var title = obj.val().title;
                     var description = obj.val().description;
                     var ending_date = obj.val().ending_date;
                     var winners_num = obj.val().winners_num;
                     var raffles_num = obj.val().raffles_num;
                     var imageLink = obj.val().imageLink;
                     var isClosed = obj.val().isClosed;
-                    var rafflers = obj.val().rafflers;
 
                     if (ending_date <= currentTime) {
-                        
-                        if (rafflers != null) {
-                            var arr_rafflerIds = new Array();
-                            for(var index in rafflers){
-                                arr_rafflerIds.push(rafflers[index]);
-                            }
-                            
-                            // select random winners among raffler ids
-                            var arr_winnerIds = new Array();
-                            if (arr_rafflerIds.length > winners_num) {
-                                arr_winnerIds = getRandom(winners_num, arr_rafflerIds);
-                            } else {
-                                arr_rafflerIds = arr_rafflerIds;
-                            }
-                            
-                            var dict = {};
-                            for (var i=0; i < arr_winnerIds.length; i++){
-                                var rafflerId = arr_rafflerIds[i];
-                                dict[rafflerId] = true;
+                        var queryToFindRafflers = firebase.database().ref('Holders').child(key);
+                        queryToFindRafflers.once('value', function(holderSnapshot){
+                            if (holderSnapshot.val() != null) {
+                                var holders = new Array();
+                                for(var index in holderSnapshot.val()){
+                                    holders.push(holderSnapshot.val()[index]);
+                                }
 
-                                //send push notification
-                                sendPushNotification(rafflerId);
+                                var candidates = new Array();
+                                if (holders.length > winners_num) {
+                                    candidates = getRandom(winners_num, holders);
+                                } else {
+                                    candidates = holders;
+                                }
+
+                                var winners = candidates.filter((elem, index, self) => self.findIndex((t) => {return t.uid === elem.uid}) === index);
+                                var remains = new Array();
+                                for (var i = holders.length-1; i >= 0; i--) {
+                                    var holder = holders[i];
+                                    if (!contains(winners, holder)){
+                                        remains.push(holder);
+                                    }
+                                }
+                                
+                                var losers = remains.filter((elem, index, self) => self.findIndex((t) => {return t.uid === elem.uid}) === index);
+
+                                console.log('winners', winners);
+                                console.log('losers' , losers);
+
+                                var winnerIds = new Array();
+                                var winnerPushTokens = new Array();
+                                for (var index in winners){
+                                    var winner = winners[index];
+                                    winnerIds.push(winner.uid);
+                                    winnerPushTokens.push(winner.pushToken);
+                                }
+
+                                var loserIds = new Array();
+                                var loserPushTokens = new Array();
+                                for (var index in losers) {
+                                    var loser = losers[index];
+                                    loserIds.push(loser.uid);
+                                    loserPushTokens.push(loser.pushToken);
+                                }
+
+                                // update raffle data for winners
+                                firebase.database().ref('Raffles').child(key).child('winners').set(winnerIds);
+                                // send push notification for winners/losers
+                                console.log('winnerPushTokens', winnerPushTokens);
+                                sendPushNotification('Congratulations! You won the ' + title +'!', winnerPushTokens);
+                                console.log('loserPushTokens', loserPushTokens);
+                                sendPushNotification('Sorry. You did not win the '+ title +'. Keep chatting so you have a greater chance of winning.', loserPushTokens);
                             }
-
-                            var raffle = {
-                                'idx': key,
-                                'description': description,
-                                'ending_date': ending_date,
-                                'imageLink': imageLink, 
-                                'isClosed' : true,
-                                'rafflers' : rafflers,
-                                'winners' : dict,
-                                'raffles_num' : raffles_num,
-                                'winners_num' : winners_num
-                            }
-
-                            //save prizes data for winners
-                            for (var i=0; i < arr_winnerIds.length; i++) {
-                                firebase.database().ref('Prizes').child(rafflerId).child(raffle);
-                            }
-
-                            console.log('winners' , dict);
-
-                            firebase.database().ref('Raffles').child(key).child('winners').set(dict);
-                        }
+                        });
                     
                         // make raffle as expired
                         firebase.database().ref('Raffles').child(key).child('isClosed').set(true);

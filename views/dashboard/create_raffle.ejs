@@ -53,23 +53,23 @@
                 </div>
                 <div class="panel-body">
                     <form id="frm_create_raffle" autocomplete="off">
-                        <!--<div class="row form-group form-material">
+                        <div class="row form-group form-material">
                             <label class="control-label">Title<span class="required">*</span></label>
-                            <input type="text" class="form-control" name="title" placeholder="Title of Raffle" required />
-                        </div>-->
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title of Raffle" required />
+                        </div>
                         <div class="row form-group form-material">
                             <label class="control-label">Description<span class="required">*</span></label>
                             <textarea class="form-control" id="description" name="description" rows="3" placeholder="characters between 10 and 500" required></textarea>
                         </div>
-                        <div class="row margin-top-20 form-group form-material">
+                        <div class="row form-group form-material">
                             <label class="control-label">Total Winners<span class="required">*</span></label>
                             <input type="text" class="form-control" id="winners_num" name="winners_num" data-fv-between="true" data-fv-between-min="1" data-fv-between-max="10" data-fv-between-message="please enter between[1,10]" placeholder="range = [1, 10]" data-fv-field="vRange" required>
                         </div>
-                        <div class="row margin-top-20 form-group form-material">
+                        <div class="row form-group form-material">
                             <label class="control-label">Needed Raffles<span class="required">*</span></label>
-                            <input type="text" class="form-control" id="raffles_num" name="raffles_num" data-fv-lessthan="true" data-fv-lessthan-value="500" data-fv-greaterthan-message="please enter less than 500" placeholder="max = 500" data-fv-field="vMax" required>
+                            <input type="text" class="form-control" id="raffles_num" name="raffles_num" data-fv-lessthan="true" data-fv-lessthan-value="5000" data-fv-greaterthan-message="please enter less than 5000" placeholder="max = 5000" data-fv-field="vMax" required>
                         </div>
-                        <div class="row margin-top-20 form-group form-material">
+                        <div class="row form-group form-material">
                             <label class="control-label">EndAt<span class="required">*</span></label>
                             <div class='input-group date' id='datetimepicker'>
                                 <input type='text' class="form-control" name="ending_date" required/>
@@ -78,11 +78,11 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="row margin-top-20">
+                        <div class="row">
                             <input type="file" id="input-file-now" data-plugin="dropify" data-default-file="" data-allowed-formats="landscape square" data-max-file-size="1M" data-max-height="1000" />
                             <p class="help">Only landscape or square images, 1M max and 1000px max-height.</p>
                         </div>
-                        <div class="row margin-top-20 text-right">
+                        <div class="row text-right">
                             <!-- Publish Button -->
                             <button type="submit" id="btn_submit" name="btn_submit"  class="btn btn-primary ladda-button" data-style="expand-left" data-plugin="ladda">
                               <span class="ladda-label">Publish</span>
@@ -105,18 +105,18 @@
                 <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable" id="tbl_raffles">
                     <thead>
                     <tr>
-                        <th class="col-md-1">No.</th>
+                        <th class="col-md-2">Title</th>
                         <th class="col-md-4">Description</th>
-                        <th class="col-md-2">Status</th>
+                        <th class="col-md-1">Closed</th>
                         <th class="col-md-3">Date</th>
                         <th class="col-md-1">$$</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>No.</th>
+                        <th>Title</th>
                         <th>Description</th>
-                        <th>Status</th>
+                        <th>Closed</th>
                         <th>Date</th>
                         <th>$$</th>
                     </tr>

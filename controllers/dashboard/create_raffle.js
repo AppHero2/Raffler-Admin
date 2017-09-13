@@ -13,6 +13,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
+    var title = req.body.title;
     var description = req.body.description;
     var ending_date = req.body.ending_date;
     var raffles_num = req.body.raffles_num;
@@ -49,6 +50,7 @@ router.post("/", (req, res, next) => {
             var imageLink = "https://s3.amazonaws.com/raffler-admin/raffles/" + file_name;
 
             Raffle.saveData({
+                title: title,
                 description: description,
                 ending_date: ending_date * 1000,
                 raffles_num: raffles_num * 1,

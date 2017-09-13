@@ -32,6 +32,12 @@ $(document).ready(function(){
     $("#frm_create_raffle").unbind("submit").bind("submit", function(e){
       e.preventDefault();
 
+      var title = $("#title").val();
+      if (title.length < 0) {
+        alert("You should input description.");
+        return false;
+      }
+
       var des = $("#description").val();
       console.log(des);
       if (des.length < 10){
@@ -58,6 +64,7 @@ $(document).ready(function(){
       }
 
       var param = {
+        title: $("#title").val(),
         description: $("#description").val(),
         ending_date: milisecondsSince1970,
         raffles_num: $("#raffles_num").val(),
@@ -96,12 +103,12 @@ $(document).ready(function(){
 function renderData(raffles) {
 
     for (var i=0; i<raffles.length; i++) {
-        var index = i+1;
+        var title = raffles[i].title;
         var description = raffles[i].description;
         var isClosed = raffles[i].isClosed;
-        var ending_date = timeFormater(moment.unix(raffles[i].ending_date));
+        var ending_date = timeFormater(raffles[i].ending_date);
         var raffles_num = raffles[i].raffles_num;
-        tbl_raffles.row.add([index, description, isClosed, ending_date, raffles_num]).draw(false);
+        tbl_raffles.row.add([title, description, isClosed, ending_date, raffles_num]).draw(false);
     }
 }
 
@@ -111,7 +118,7 @@ function timeFormater(UNIX_timestamp){
 }
 
 function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
+  var a = new Date(UNIX_timestamp);
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
@@ -155,9 +162,9 @@ function GetData(callback) {
               min: 6,
               max: 30
             },
-            regexp: {
-              regexp: /^[a-zA-Z0-9]+$/
-            }
+            // regexp: {
+            //   regexp: /^[a-zA-Z0-9]+$/
+            // }
           }
         },
         description:{
@@ -167,7 +174,7 @@ function GetData(callback) {
             },
             stringLength: {
               min: 10,
-              max: 500
+              max: 5000
             }
           }
         },
