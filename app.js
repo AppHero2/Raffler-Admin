@@ -188,6 +188,24 @@ function Raffler(config) {
                                     var winner = winners[index];
                                     winnerIds.push(winner.uid);
                                     winnerPushTokens.push(winner.pushToken);
+
+                                    var newsRef = firebase.database().ref('News').child(winner.uid).push();
+                                    var idx = newsRef.key;
+                                    var news = {
+                                        'idx' : idx,
+                                        'title': 'Congratulations!',
+                                        'content': 'You won the ' + title +'!',
+                                        'relatedId': key,
+                                        'isRead' : false,
+                                        'newsType' : 0,
+                                        'createdAt' : currentTime * 1,
+                                        'updatedAt' : currentTime * 1
+                                    };
+                                    newsRef.set(news, function(error){
+                                        if (error) {
+                                            console.log('News', error);
+                                        }
+                                    });
                                 }
 
                                 var loserIds = new Array();
@@ -196,6 +214,24 @@ function Raffler(config) {
                                     var loser = losers[index];
                                     loserIds.push(loser.uid);
                                     loserPushTokens.push(loser.pushToken);
+
+                                    var newsRef = firebase.database().ref('News').child(loser.uid).push();
+                                    var idx = newsRef.key;
+                                    var news = {
+                                        'idx' : idx, 
+                                        'title': 'We are sorry',
+                                        'content': 'You did not win the '+ title +'. Keep chatting so you have a greater chance of winning.',
+                                        'relatedId': key,
+                                        'isRead' : false,
+                                        'newsType' : 0,
+                                        'createdAt' : currentTime * 1,
+                                        'updatedAt' : currentTime * 1
+                                    };
+                                    newsRef.set(news, function(error){
+                                        if (error) {
+                                            console.log('News', error);
+                                        }
+                                    });
                                 }
 
                                 // update raffle data for winners
