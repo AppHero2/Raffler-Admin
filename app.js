@@ -94,10 +94,9 @@ function Raffler(config) {
         },300000);
 
         setInterval(function(){
-
+            doManageRaffle();
         }, 60000);
-
-        doManageRaffle();
+        
     }
 
     function getRandom(num, arr){
@@ -204,6 +203,22 @@ function Raffler(config) {
                                     newsRef.set(news, function(error){
                                         if (error) {
                                             console.log('News', error);
+                                        }
+                                    });
+
+                                    var prize = {
+                                        'idx'          : key,
+                                        'title'        : title,
+                                        'description'  : description,
+                                        'imageLink'    : imageLink,
+                                        'isDelivered'  : false,
+                                        'createdAt'    : currentTime * 1,
+                                        'updatedAt'    : currentTime * 1
+                                    }
+                                    var prizesRef = firebase.database().ref('Prizes').child(winner.uid).child(key);
+                                    prizesRef.set(prize, function(error){
+                                        if(error){
+                                            console.log('Prizes', error);
                                         }
                                     });
                                 }
