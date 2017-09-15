@@ -50,6 +50,7 @@ GetAllData = (callback) => {
                 var winners_num = obj.val().winners_num;
                 var imageLink = obj.val().imageLink;
                 var isClosed = obj.val().isClosed;
+                var isPublished = obj.val().isPublished;
                 
                 raffles.push({
                     key         : key,
@@ -59,7 +60,8 @@ GetAllData = (callback) => {
                     raffles_num : raffles_num,
                     winners_num : winners_num,
                     imageLink   : imageLink,
-                    isClosed    : isClosed
+                    isClosed    : isClosed,
+                    isPublished : isPublished
                 });
             });
             callback(null, raffles);

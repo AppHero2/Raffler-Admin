@@ -56,7 +56,8 @@ router.post("/", (req, res, next) => {
                 raffles_num: raffles_num * 1,
                 winners_num: winners_num * 1,
                 imageLink: imageLink,
-                isClosed: false
+                isClosed: false,
+                isPublished : true,
             }, (callback) => {
                 if (callback.success) {
                     Response.send(res, {
