@@ -48,8 +48,8 @@ function Raffler(config) {
         app.use(session({
             cookieName: 'session',
             secret: 'eg[isfd-8yF9-7w2315df{}+Ijslito8',
-            duration: 30 * 60 * 1000,
-            activeDuration: 5 * 60 * 1000,
+            duration: 30 * (60 * 1000),
+            activeDuration: 15 * (60 * 1000),
         }));
         app.use(authCheck);
         app.use(require('./controllers'));
@@ -94,8 +94,10 @@ function Raffler(config) {
         },300000);
 
         setInterval(function(){
-            doManageRaffle();
+            
         }, 60000);
+
+        doManageRaffle();
         
     }
 
@@ -207,6 +209,8 @@ function Raffler(config) {
                                     });
 
                                     var prize = {
+                                        'winnerId'     : winner.uid,
+                                        'winnerPhone'  : winner.phone,
                                         'idx'          : key,
                                         'title'        : title,
                                         'description'  : description,
@@ -260,7 +264,7 @@ function Raffler(config) {
                         });
                     
                         // make raffle as expired
-                        firebase.database().ref('Raffles').child(key).child('isClosed').set(true);
+                        // firebase.database().ref('Raffles').child(key).child('isClosed').set(true);
                     }
 
                 });

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="raffler admin template">
+  <meta name="author" content="">
+  <title>Dashboard | Raffler Admin</title>
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <% include ../include/styles.ejs %>
+  <link rel="stylesheet" href="/assets/global/vendor/formvalidation/formValidation.css">
+  <link rel="stylesheet" href="/assets/global/vendor/dropify/dropify.css">
+  <link rel="stylesheet" href="/assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/assets/global/vendor/jt-timepicker/jquery-timepicker.css">
+  <link rel="stylesheet" href="/assets/global/vendor/ladda-bootstrap/ladda.css">
+  <link rel="stylesheet" href="/assets/global/vendor/datetimepicker/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="/assets/global/vendor/footable/footable.css">
+  <link rel='stylesheet' href="/css/include/navbar.css">
+  <link rel='stylesheet' href="/css/dashboard/winners.css">
+  <!-- Scripts -->
+  <script src="/assets/global/vendor/modernizr/modernizr.js"></script>
+  <script src="/assets/global/vendor/breakpoints/breakpoints.js"></script>
+  <script>
+  Breakpoints();
+  </script>
+</head>
+<body class="dashboard">
+  <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <% include ../include/navbar.ejs %>
+
+  <% include ../include/menubar.ejs %>
+
+  <% include ../include/gridmenu.ejs %>
+
+  <!-- Page -->
+  <div class="page bg-white animsition">
+        <div class="page-aside">
+          <!-- Winners Sidebar -->
+          <div class="page-aside-switch">
+            <i class="icon md-chevron-left" aria-hidden="true"></i>
+            <i class="icon md-chevron-right" aria-hidden="true"></i>
+          </div>
+          <div class="page-aside-inner" data-plugin="pageAsideScroll" >
+            <div data-role="container" id="container" style="height:100% !important;">
+              <div data-role="content">
+                <div class="page-aside-section">
+                  <div class="list-group">
+                    <a class="list-group-item" href="javascript:void(0)">
+                      <span class="item-right">61</span><i class="icon md-inbox" aria-hidden="true"></i>All Winners
+                    </a>
+                  </div>
+                </div>
+                <div class="page-aside-section">
+                  <h5 class="page-aside-title">Raffles</h5>
+                  
+                  <div class="list-group has-actions" id="list_raffles">
+
+                    <!-- <div class="list-group-item">
+                      <div class="list-content">
+                        <span class="item-right">30</span>
+                        <span class="list-text">Friends</span>
+                        <div class="item-actions">
+                          <span class="btn btn-pure btn-icon" data-toggle="list-editable"><i class="icon md-edit" aria-hidden="true"></i></span>
+                          <span class="btn btn-pure btn-icon" data-tag="list-delete"><i class="icon md-delete" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                      <div class="list-editable">
+                        <div class="form-group form-material">
+                          <input type="text" class="form-control empty" name="label" data-bind=".list-text"
+                          value="Friends">
+                          <button type="button" class="input-editable-close icon md-close" data-toggle="list-editable-close"
+                          aria-label="Close" aria-expanded="true"></button>
+                        </div>
+                      </div>
+                    </div> -->
+ 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Winners Content -->
+        <div class="page-main">
+            <!-- Panel Filtering -->
+          <div class="panel">
+                <header class="panel-heading">
+                  <h3 class="panel-title">Winners</h3>
+                </header>
+                <div class="panel-body">
+                  <table class="table table-bordered table-hover toggle-circle" id="exampleFootableFiltering">
+                    <thead>
+                      <tr>
+                        <th data-toggle="true">winner's phone</th>
+                        <th >Raffle Title</th>
+                        <th data-hide="phone">Date</th>
+                        <th data-hide="phone">Status</th>
+                      </tr>
+                    </thead>
+                    <div class="form-inline padding-bottom-15">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select id="filteringStatus" class="form-control">
+                              <option value="">Show all</option>
+                              <option value="active">Awarded</option>
+                              <option value="disabled">Pending</option>
+                              <option value="suspended">Aborted</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                          <div class="form-group">
+                            <input id="filteringSearch" type="text" placeholder="Search" class="form-control"
+                            autocomplete="off">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <tbody>
+                      <tr>
+                        <td>+8613614156350</td>
+                        <td>Mobile phone power bank</td>
+                        <td>3 Oct 2015</td>
+                        <td>
+                          <span class="label label-table label-success">Awarded</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>+13057106844</td>
+                        <td>Mobile phone power bank</td>
+                        <td>1 Nov 2014</td>
+                        <td>
+                          <span class="label label-table label-danger">Aborted</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>+17868796093</td>
+                        <td>Mobile phone power bank</td>
+                        <td>17 Oct 2014</td>
+                        <td>
+                          <span class="label label-table label-dark">Pending</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="5">
+                          <div class="text-right">
+                            <ul class="pagination"></ul>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <!-- End Panel Filtering -->
+        </div>
+      </div>
+  <!-- End Page -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-legal">© 2017 <a href="http://rafferchat.com">Raffler LLC</a></div>
+    <div class="site-footer-right">
+      Developed with <i class="red-600 icon md-favorite"></i> by <a href="http://rafferchat.com">Jack Huang</a>
+    </div>
+  </footer>
+
+<% include ../include/scripts.ejs %>
+
+<script src="/assets/global/vendor/matchheight/jquery.matchHeight-min.js"></script>
+<script src="/assets/global/vendor/switchery/switchery.min.js"></script>
+<script src="/assets/global/vendor/intro-js/intro.js"></script>
+<script src="/assets/global/vendor/screenfull/screenfull.js"></script>
+<script src="/assets/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+<script src="/assets/global/vendor/formvalidation/formValidation.min.js"></script>
+<script src="/assets/global/vendor/formvalidation/framework/bootstrap.min.js"></script>
+<script src="/assets/global/vendor/dropify/dropify.min.js"></script>
+<script src="/assets/global/vendor/datepair-js/datepair.min.js"></script>
+<script src="/assets/global/vendor/datepair-js/jquery.datepair.min.js"></script>
+<script src="/assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/assets/global/vendor/jt-timepicker/jquery.timepicker.min.js"></script>
+<script src="/assets/global/vendor/ladda-bootstrap/spin.js"></script>
+<script src="/assets/global/vendor/ladda-bootstrap/ladda.js"></script>
+<script src="/assets/global/vendor/moment/moment.min.js"></script>
+<script src="/assets/global/vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/global/vendor/footable/footable.all.min.js"></script>
+<script src="/assets/global/js/components/matchheight.js"></script>
+<script src="/assets/global/js/components/dropify.js"></script>
+<script src="/assets/global/js/components/datepair-js.js"></script>
+<script src="/assets/global/js/components/bootstrap-datepicker.js"></script>
+<script src="/assets/global/js/components/jt-timepicker.js"></script>
+<script src="/assets/global/js/components/buttons.js"></script>
+<script src="/assets/global/js/components/ladda-bootstrap.js"></script>
+<script src="/assets/global/js/components/datatables.js"></script>
+<script src="/js/dashboard/winners.js"></script>
+
+</body>
+</html>
