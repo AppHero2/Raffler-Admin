@@ -1,115 +1,114 @@
 var tbl_raffles;
 
 $(document).ready(function(){
-    Site.run();
+  Site.run();
 
-    tbl_raffles = $('#tbl_raffles').DataTable();
+  tbl_raffles = $('#tbl_raffles').DataTable();
 
-    $('#datetimepicker').datetimepicker({
-        inline: false,
-        sideBySide: false
-    });
+  $('#datetimepicker').datetimepicker({
+      inline: false,
+      sideBySide: false
+  });
 
-    var datetimepicker = $("#datetimepicker").data("DateTimePicker");      
-    $("#datetimepicker").on("dp.change", function (e) {
-         $('#frm_create_raffle').formValidation('revalidateField', 'ending_date');
-    });
-    // Used events
-    var drEvent = $('#input-file-now').dropify();
+  var datetimepicker = $("#datetimepicker").data("DateTimePicker");      
+  $("#datetimepicker").on("dp.change", function (e) {
+        $('#frm_create_raffle').formValidation('revalidateField', 'ending_date');
+  });
+  // Used events
+  var drEvent = $('#input-file-now').dropify();
 
-    drEvent.on('dropify.beforeClear', function(event, element){
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
+  drEvent.on('dropify.beforeClear', function(event, element){
+      return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+  });
 
-    drEvent.on('dropify.afterClear', function(event, element){
-        console.log('File deleted');
-    });
+  drEvent.on('dropify.afterClear', function(event, element){
+      console.log('File deleted');
+  });
 
-    drEvent.on('dropify.errors', function(event, element){
-        console.log('Has Errors');
-    });
+  drEvent.on('dropify.errors', function(event, element){
+      console.log('Has Errors');
+  });
 
-    $("#frm_create_raffle").unbind("submit").bind("submit", function(e){
-      e.preventDefault();
+  $("#frm_create_raffle").unbind("submit").bind("submit", function(e){
+    e.preventDefault();
 
-      var title = $("#title").val();
-      if (title.length < 0) {
-        alert("You should input description.");
-        return false;
-      }
-
-      var des = $("#description").val();
-      console.log(des);
-      if (des.length < 10){
-        alert("You should input description.");
-        return false;
-      }
-
-      if (datetimepicker.date() == null){
-        alert("You should select date");
-        return false;
-      }
-
-      var milisecondsSince1970 = datetimepicker.date().unix();
-
-      var imgBase64 = "";
-      if ($("#input-file-now").parent().hasClass("has-preview")) {
-          var parent = $("#input-file-now").parent();
-          var preview = parent.find(".dropify-render")[0];
-          var img = preview.firstChild;
-          imgBase64 = $(img).attr("src");
-      } else {
-        alert("You should select cover image.");
-        return false;
-      }
-
-      var param = {
-        title: $("#title").val(),
-        description: $("#description").val(),
-        ending_date: milisecondsSince1970,
-        raffles_num: $("#raffles_num").val(),
-        winners_num: $("#winners_num").val(),
-        base64Image: imgBase64
-      };
-
-      var loadingSpinner = Ladda.create(this);
-      loadingSpinner.start();
-
-      $.ajax({
-        url: "/create_raffle",
-        method: "POST",
-        data: param,
-        success: function(res){
-          
-          loadingSpinner.stop();
-
-          if (res.success) {
-            location.href = "/dashboard/create_raffle";
-          } else {
-            alert(res.error);
-          }
-        }
-      });
-
+    var title = $("#title").val();
+    if (title.length < 0) {
+      alert("You should input description.");
       return false;
+    }
 
+    var des = $("#description").val();
+    console.log(des);
+    if (des.length < 10){
+      alert("You should input description.");
+      return false;
+    }
+
+    if (datetimepicker.date() == null){
+      alert("You should select date");
+      return false;
+    }
+
+    var milisecondsSince1970 = datetimepicker.date().unix();
+
+    var imgBase64 = "";
+    if ($("#input-file-now").parent().hasClass("has-preview")) {
+        var parent = $("#input-file-now").parent();
+        var preview = parent.find(".dropify-render")[0];
+        var img = preview.firstChild;
+        imgBase64 = $(img).attr("src");
+    } else {
+      alert("You should select cover image.");
+      return false;
+    }
+
+    var param = {
+      title: $("#title").val(),
+      description: $("#description").val(),
+      ending_date: milisecondsSince1970,
+      raffles_num: $("#raffles_num").val(),
+      winners_num: $("#winners_num").val(),
+      base64Image: imgBase64
+    };
+
+    var loadingSpinner = Ladda.create(this);
+    loadingSpinner.start();
+
+    $.ajax({
+      url: "/create_raffle",
+      method: "POST",
+      data: param,
+      success: function(res){
+        
+        loadingSpinner.stop();
+
+        if (res.success) {
+          location.href = "/dashboard/create_raffle";
+        } else {
+          alert(res.error);
+        }
+      }
     });
-    
-    GetData(function(raffles){
-        renderData(raffles);
-    });
+
+    return false;
+
+  });
+  
+  GetData(function(raffles){
+      renderData(raffles);
+  });
 });
 
 function renderData(raffles) {
-
-    for (var i=0; i<raffles.length; i++) {
-        var title = raffles[i].title;
-        var description = raffles[i].description;
-        var isClosed = raffles[i].isClosed;
-        var ending_date = timeFormater(raffles[i].ending_date);
-        var raffles_num = raffles[i].raffles_num;
-        tbl_raffles.row.add([title, description, isClosed, ending_date, raffles_num]).draw(false);
-    }
+  for (var i=0; i<raffles.length; i++) {
+      var title = raffles[i].title;
+      var description = raffles[i].description;
+      var isClosed = raffles[i].isClosed;
+      var ending_date = timeFormater(raffles[i].ending_date);
+      var raffles_num = raffles[i].raffles_num;
+      tbl_raffles.row.add([title, description, isClosed, ending_date, raffles_num]).draw(false);
+  }
 }
 
 function timeFormater(UNIX_timestamp){
@@ -131,17 +130,17 @@ function timeConverter(UNIX_timestamp){
 }
 
 function GetData(callback) {
-    $.ajax({
-        url: "/create_raffle/getData",
-        method: "POST",
-        success: function(res) {
-            if (res.success) {
-                callback(res.data);
-            } else {
-                callback([]);
-            }
-        }
-    });
+  $.ajax({
+      url: "/create_raffle/getData",
+      method: "POST",
+      success: function(res) {
+          if (res.success) {
+              callback(res.data);
+          } else {
+              callback([]);
+          }
+      }
+  });
 }
 
 (function(){
