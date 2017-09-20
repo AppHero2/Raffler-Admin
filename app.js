@@ -94,11 +94,8 @@ function Raffler(config) {
         },300000);
 
         setInterval(function(){
-            
+            doManageRaffle();
         }, 60000);
-
-        doManageRaffle();
-        
     }
 
     function getRandom(num, arr){
@@ -209,8 +206,6 @@ function Raffler(config) {
                                     });
 
                                     var prize = {
-                                        'winnerId'     : winner.uid,
-                                        'winnerPhone'  : winner.phone,
                                         'idx'          : key,
                                         'title'        : title,
                                         'description'  : description,
@@ -219,12 +214,29 @@ function Raffler(config) {
                                         'createdAt'    : currentTime * 1,
                                         'updatedAt'    : currentTime * 1
                                     }
+
                                     var prizesRef = firebase.database().ref('Prizes').child(winner.uid).child(key);
                                     prizesRef.set(prize, function(error){
                                         if(error){
                                             console.log('Prizes', error);
                                         }
                                     });
+
+                                    if (winner.phone) {
+                                        var winnerInfo = {
+                                            'uid'       : winner.uid,
+                                            'phone'     : winner.phone,
+                                            'pushToken' : winner.pushToken,
+                                            'raffle_id'    : key,
+                                            'raffle_title' : title,
+                                            'raffle_thumb' : imageLink,
+                                            'status'    : 0,
+                                            'createdAt' : currentTime * 1,
+                                            'updatedAt' : currentTime * 1
+                                        }
+                                        firebase.database().ref('WinnerInfo').child(key).child(winner.phone).set(winnerInfo);
+                                    }
+                                    
                                 }
 
                                 var loserIds = new Array();
@@ -264,7 +276,7 @@ function Raffler(config) {
                         });
                     
                         // make raffle as expired
-                        // firebase.database().ref('Raffles').child(key).child('isClosed').set(true);
+                        firebase.database().ref('Raffles').child(key).child('isClosed').set(true);
                     }
 
                 });

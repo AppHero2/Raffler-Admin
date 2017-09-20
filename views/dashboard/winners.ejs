@@ -52,7 +52,7 @@
                 <div class="page-aside-section">
                   <div class="list-group">
                     <a class="list-group-item" href="javascript:void(0)">
-                      <span class="item-right">61</span><i class="icon md-inbox" aria-hidden="true"></i>All Winners
+                      <span class="item-right" id="total_count">0</span><i class="icon md-inbox" aria-hidden="true"></i>All Winners
                     </a>
                   </div>
                 </div>
@@ -95,10 +95,10 @@
                   <h3 class="panel-title">Winners</h3>
                 </header>
                 <div class="panel-body">
-                  <table class="table table-bordered table-hover toggle-circle" id="exampleFootableFiltering">
+                  <table class="table table-bordered table-hover toggle-circle" id="tbl_winners">
                     <thead>
                       <tr>
-                        <th data-toggle="true">winner's phone</th>
+                        <th data-toggle="true">Winner</th>
                         <th >Raffle Title</th>
                         <th data-hide="phone">Date</th>
                         <th data-hide="phone">Status</th>
@@ -111,9 +111,9 @@
                             <label class="control-label">Status</label>
                             <select id="filteringStatus" class="form-control">
                               <option value="">Show all</option>
-                              <option value="active">Awarded</option>
-                              <option value="disabled">Pending</option>
-                              <option value="suspended">Aborted</option>
+                              <option value="awarded">Awarded</option>
+                              <option value="pending">Pending</option>
+                              <option value="aborted">Aborted</option>
                             </select>
                           </div>
                         </div>
@@ -125,29 +125,13 @@
                         </div>
                       </div>
                     </div>
-                    <tbody>
+                    <tbody id="tbl_winners_body">
                       <tr>
-                        <td>+8613614156350</td>
-                        <td>Mobile phone power bank</td>
-                        <td>3 Oct 2015</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                          <span class="label label-table label-success">Awarded</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>+13057106844</td>
-                        <td>Mobile phone power bank</td>
-                        <td>1 Nov 2014</td>
-                        <td>
-                          <span class="label label-table label-danger">Aborted</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>+17868796093</td>
-                        <td>Mobile phone power bank</td>
-                        <td>17 Oct 2014</td>
-                        <td>
-                          <span class="label label-table label-dark">Pending</span>
+                          
                         </td>
                       </tr>
                     </tbody>

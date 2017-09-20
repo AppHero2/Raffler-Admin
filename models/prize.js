@@ -21,19 +21,12 @@ LoadWinners = (idx, callback) => {
     if (idx) {
         queryPrizes = firebase.database().ref().child('Prizes').orderByChild('idx').equalTo(idx);
         queryPrizes.once('value', function(snapshot) {
+            console.log(snapshot, snapshot.val());
             if (snapshot.val() != null) {
                 var prizes = [];
                 console.log(snapshot.val());
                 snapshot.forEach(function(obj){
-                    var key = obj.key;
-                    var phone = obj.val().phone;
-                    var isDelivered = obj.val().isDelivered;
-                    var updatedAt = obj.val().updatedAt;
-                    prizes.push({
-                        'phone'       : phone,
-                        'isDelivered' : isDelivered,
-                        'updatedAt'   : updatedAt
-                    });
+                    
                 });
                 callback(null, prizes);
             } else {
