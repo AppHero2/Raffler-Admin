@@ -195,7 +195,7 @@ function Raffler(config) {
                                         'content': 'You won the ' + title +'!',
                                         'relatedId': key,
                                         'isRead' : false,
-                                        'newsType' : 0,
+                                        'newsType' : 1,
                                         'createdAt' : currentTime * 1,
                                         'updatedAt' : currentTime * 1
                                     };
