@@ -9,7 +9,7 @@ Raffle = () => {
  * @description: If id is null, return all data
  */
 Raffle.getData = (id, callback) => {
-    GetAllData((err, raffles) => {
+    Raffle.getAllData((err, raffles) => {
         if (id) {
 
         } else {
@@ -37,7 +37,7 @@ Raffle.saveData = (data, callback) => {
     });
 }
 
-GetAllData = (callback) => {
+Raffle.getAllData = (callback) => {
     firebase.database().ref().child('Raffles').once('value', function(snapshot){
         if (snapshot.val() != null){
             var raffles = [];

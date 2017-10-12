@@ -9,7 +9,7 @@ News = () => {
  * @description: If id is null, return all data
  */
 News.getData = (id, callback) => {
-    GetAllData((err, newses) => {
+    News.getAllData((err, newses) => {
         if (id) {
 
         } else {
@@ -90,7 +90,7 @@ function sendPushNotification(message, pushTokens){
     })
 }
 
-GetAllData = (callback) => {
+News.getAllData = (callback) => {
     firebase.database().ref().child('News').child('1-admin').once('value', function(snapshot){
         if (snapshot.val() != null){
             var newses = [];
