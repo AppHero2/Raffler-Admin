@@ -44,48 +44,27 @@
     <div class="page-content padding-30 container-fluid">
         <div class="row" data-plugin="matchHeight" data-by-row="true">
         
-            <!-- Create Raffle -->
+            <!-- Create News -->
             <div class="col-xlg-4 col-md-4">
-                <div class="panel" id = "create_raffle_panel">
+                <div class="panel" id = "create_news_panel">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Create Raffle</h3>
+                        <h3 class="panel-title">Send News</h3>
                     </div>
                     <div class="panel-body">
-                        <form id="frm_create_raffle" autocomplete="off">
+                        <form id="frm_send_news" autocomplete="off">
                             <div class="row form-group form-material">
                                 <label class="control-label">Title<span class="required">*</span></label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Title of Raffle" required />
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Title of News" required />
                             </div>
                             <div class="row form-group form-material">
-                                <label class="control-label">Description<span class="required">*</span></label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="characters between 10 and 500" required></textarea>
-                            </div>
-                            <div class="row form-group form-material">
-                                <label class="control-label">Total Winners<span class="required">*</span></label>
-                                <input type="text" class="form-control" id="winners_num" name="winners_num" data-fv-between="true" data-fv-between-min="1" data-fv-between-max="999999" data-fv-between-message="please enter between[1,999999]" placeholder="range = [1, 999999]" data-fv-field="vRange" required>
-                            </div>
-                            <div class="row form-group form-material">
-                                <label class="control-label">Needed Raffles<span class="required">*</span></label>
-                                <input type="text" class="form-control" id="raffles_num" name="raffles_num" data-fv-lessthan="true" data-fv-lessthan-value="5000" data-fv-greaterthan-message="please enter less than 5000" placeholder="max = 5000" data-fv-field="vMax" required>
-                            </div>
-                            <div class="row form-group form-material">
-                                <label class="control-label">EndAt<span class="required">*</span></label>
-                                <div class='input-group date' id='datetimepicker'>
-                                    <input type='text' class="form-control" name="ending_date" required/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <input type="file" id="input-file-now" data-plugin="dropify" data-default-file="" data-allowed-formats="landscape square" data-max-file-size="1M" data-max-height="1000" />
-                                <p class="help">Only landscape or square images, 1M max and 1000px max-height.</p>
+                                <label class="control-label">Content<span class="required">*</span></label>
+                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="characters between 1 and 500" required></textarea>
                             </div>
                             <div class="row text-right">
                                 <!-- Publish Button -->
                                 <button type="submit" id="btn_submit" name="btn_submit"  class="btn btn-primary ladda-button" data-style="expand-left" data-plugin="ladda">
-                                <span class="ladda-label">Publish</span>
+                                <span class="ladda-label">Send</span>
                                 <span class="ladda-spinner"></span></button>
                             </div>
                         </form>
@@ -96,29 +75,25 @@
             <div class="col-xlg-8 col-md-8">
             
                 <!-- Panel Basic -->
-                <div class="panel" id="list_raffles_panel">
+                <div class="panel" id="list_news_panel">
                     <header class="panel-heading">
                         <div class="panel-actions"></div>
-                        <h3 class="panel-title">Raffles</h3>
+                        <h3 class="panel-title">News History</h3>
                     </header>
                     <div class="panel-body">
-                        <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable" id="tbl_raffles">
+                        <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable" id="tbl_news">
                             <thead>
                             <tr>
                                 <th class="col-md-2">Title</th>
-                                <th class="col-md-4">Description</th>
-                                <th class="col-md-1">Closed</th>
+                                <th class="col-md-4">Content</th>
                                 <th class="col-md-3">Date</th>
-                                <th class="col-md-1">$$</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Title</th>
-                                <th>Description</th>
-                                <th>Closed</th>
+                                <th>Content</th>
                                 <th>Date</th>
-                                <th>$$</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -172,7 +147,7 @@
 <script src="/assets/global/js/components/buttons.js"></script>
 <script src="/assets/global/js/components/ladda-bootstrap.js"></script>
 <script src="/assets/global/js/components/datatables.js"></script>
-<script src="/js/dashboard/create_raffle.js"></script>
+<script src="/js/dashboard/send_news.js"></script>
 
 </body>
 </html>

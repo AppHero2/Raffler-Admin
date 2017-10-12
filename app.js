@@ -26,7 +26,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var AWS         = require('aws-sdk');
+var AWS = require('aws-sdk');
 AWS.config.update({
         accessKeyId: process.env.S3_KEY,
         secretAccessKey: process.env.S3_SECRET,
@@ -38,6 +38,7 @@ AWS.config.apiVersions = {
 
 function Raffler(config) {
     this.init = () => {
+        global.push_client = push_client;
         app.set('views', path.join(__dirname, 'views'));
         app.set('view engine', 'ejs');
         app.use(logger('dev'));
