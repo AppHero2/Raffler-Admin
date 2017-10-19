@@ -79,11 +79,6 @@ function sendPushNotification(message, pushTokens){
         },
         specific: {
             include_player_ids: pushTokens
-        },
-        attachments: {
-            data: {
-                hello: message
-            }
         }
     }).then(success => {
         console.log('sendPush', success);
