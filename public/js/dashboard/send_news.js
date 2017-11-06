@@ -99,7 +99,7 @@ function timeFormater(UNIX_timestamp){
             },
             stringLength: {
               min: 5,
-              max: 30
+              max: 42
             },
           }
         },
