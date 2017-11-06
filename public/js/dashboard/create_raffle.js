@@ -159,7 +159,7 @@ function GetData(callback) {
             },
             stringLength: {
               min: 6,
-              max: 30
+              max: 42
             },
             // regexp: {
             //   regexp: /^[a-zA-Z0-9]+$/
